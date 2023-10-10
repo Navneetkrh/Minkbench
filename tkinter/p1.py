@@ -55,7 +55,7 @@ increment_b.pack(pady=10)
 
 my_label = ttkb.Label(root, text="Progress ", bootstyle=WARNING)
 my_label.pack(pady=10)
-gola=ttkb.Meter(root,bootstyle="warning",amountused=37,amounttotal=100)
+gola=ttkb.Meter(my_frame,bootstyle="warning",amountused=37,amounttotal=100)
 gola.pack(pady=10)
 root.mainloop()
 
