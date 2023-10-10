@@ -23,8 +23,13 @@ def update(i):
 #    append time and cpu usage to x and y
     x.append(next(counter))
     y.append(cpu_usage())
+    # delete the data which are older than 30 seconds
+    if len(x)>30:
+        x.pop(0)
+        y.pop(0)
     plt.cla()
     ax.plot(x,y)
     plt.pause(0.001)
 ani=FuncAnimation(fig=fig,func=update,interval=200,frames=10)
+
 plt.show() 
