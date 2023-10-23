@@ -42,5 +42,4 @@ gola4.pack( padx=10, side="right", anchor="se")
 # gola2.grid(row=0, column=1, sticky="e", pady=10, padx=10)
 # gola3.grid(row=1, column=0, sticky="w", pady=10, padx=10)
 # gola4.grid(row=1, column=1, sticky="e", pady=10, padx=10)
-
 root.mainloop()
