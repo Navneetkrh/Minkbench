@@ -1,6 +1,9 @@
 
 from pathlib import Path
-
+import psutil
+import time
+import platform
+import subprocess
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
@@ -13,18 +16,22 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"assets//system2")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
+def cpu_name():
+    result = subprocess.check_output("cat /proc/cpuinfo | grep 'model name' | uniq | cut -d: -f2", shell=True)
+    cpu_model = result.decode('utf-8').strip()
+    return cpu_model
 
 
 def sys_info_page(parent):
     def update():
         canvas.itemconfig(battery, text=str(round(psutil.sensors_battery().percent,2))+"%")
-        canvas.itemconfig(mac_name, text=str(round(psutil.cpu_freq().current/1000,2))+"GHz")
-        canvas.itemconfig(os_name, text=str((psutil.sensors_temperatures()['nvme'][1][1]+psutil.sensors_temperatures()['nvme'][2][1])/2)+"°C")
-        canvas.itemconfig(os_release, text=str(psutil.cpu_count(logical=False)))
-        canvas.itemconfig(os_version, text=str(psutil.cpu_count(logical=True)))
-        canvas.itemconfig(platform_name, text=str(round(psutil.cpu_freq().max/1000,2))+"GHz")
-        canvas.itemconfig(cpu_name, text=str(get_l3_capacity())+"KB")
-        canvas.itemconfig(network, text=str(get_l2_capacity())+"KB")
+        canvas.itemconfig(mac_name, text=str(platform.machine()))
+        canvas.itemconfig(os_name, text=str(platform.system()))
+        canvas.itemconfig(os_release, text=str(platform.release()))
+        canvas.itemconfig(os_version, text=str(platform.version()))
+        canvas.itemconfig(platform_name, text=str(platform.platform()))
+        canvas.itemconfig(cpu_name, text=str(cpu_name()))
+        canvas.itemconfig(network, text=str(platform.node()))
         canvas.itemconfig(connect, text=str(psutil.cpu_stats().interrupts))
     
     canvas = Canvas(

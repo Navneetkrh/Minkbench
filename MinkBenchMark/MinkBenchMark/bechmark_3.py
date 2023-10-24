@@ -4,6 +4,7 @@ from pathlib import Path
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from backend2.
 
 
 OUTPUT_PATH = Path(__file__).parent
@@ -71,7 +72,7 @@ def benchmark_page(parent):
         363.0,
         252.0,
         anchor="nw",
-        text="Completed",
+        text="start benchmarking",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1)
     )
@@ -105,7 +106,7 @@ def benchmark_page(parent):
         468,
         508,
         anchor="nw",
-        text="Completed",
+        text="Results",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1)
     )
