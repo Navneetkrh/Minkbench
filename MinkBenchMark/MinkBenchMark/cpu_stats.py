@@ -11,7 +11,7 @@ import numpy as np
 from itertools import count
 import pandas as pd
 from matplotlib import style
-from data import *
+# from data import *
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.animation import FuncAnimation
 
