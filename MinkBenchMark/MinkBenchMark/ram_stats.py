@@ -72,7 +72,7 @@ def ram_page(parent):
             x.pop(0)
             y.pop(0)
         ax.cla()
-        ax.set_facecolor("#1A1A25")
+        ax.set_facecolor("#1A1A25")   
         ax.fill_between(x, y, alpha=0.5, color="#DB6E8E")
         ax.set_title("RAM Usage chart", color="white", fontweight="bold")
         ax.set_xlabel("Time", color="white")

@@ -80,7 +80,7 @@ for line in lines:
 # Print the retrieved GPU information
 print("Vendor:", vendor)
 print("Device:", device)
-print("Video Memory:", video_memory)
+print("Video Memory:", int(video_memory[:-2]))
 print("Total Available Memory:", total_available_memory, "MB")
 
 

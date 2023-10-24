@@ -217,7 +217,7 @@ def cpu_page(parent):
     )
 
     battery_percent = canvas.create_text(
-        630.0,
+        620.0,
         466.0,
         anchor="nw",
         text="25W",

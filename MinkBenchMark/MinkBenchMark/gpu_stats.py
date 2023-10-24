@@ -47,8 +47,8 @@ global y
 y = []
 
 gpu_per = None
-def ram_usage():
-    print("ram usage is", gpu_per=((video_memory-total_available_memory)/video_memory)*100)
+def gpu_usage():
+    print("ram usage is", gpu_per=((int(video_memory)-int(total_available_memory))/int(video_memory))*100)
     # return np.random.randint(0, 100)
     return gpu_per
 
@@ -74,6 +74,7 @@ def gpu_page(parent):
 
     def update():
         global usage
+        gpu_usage()
         new_usage = gpu_per
         x.append(next(counter))
         y.append(new_usage)
@@ -81,8 +82,10 @@ def gpu_page(parent):
         usage = new_usage
         canvas.itemconfig(tagOrId=usage_entry, text=str(new_usage) + "%")
         canvas.itemconfig(tagOrId=ram_size, text=str(video_memory )+ "MB")
+        print(video_memory)
         canvas.itemconfig(tagOrId=free_ram, text=str(total_available_memory) + "MB")
-        canvas.itemconfig(tagOrId=usage_entry, text=video_memory-total_available_memory) + "MB")
+        print(total_available_memory)
+        canvas.itemconfig(tagOrId=usage_entry, text=str(int(video_memory)-int(total_available_memory)) + "MB")
         # only plot last 60 points
 
         plot()
