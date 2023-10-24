@@ -1,5 +1,10 @@
 
 from cpu_stats import cpu_page
+from gpu_stats import gpu_page
+from ram_stats import ram_page
+from disk_stats import disk_page
+from benchmark import benchmark_page
+from about import about_page
 
 from pathlib import Path
 
@@ -10,7 +15,7 @@ from tkinter import *
 
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"assets\frame0")
+ASSETS_PATH = OUTPUT_PATH / Path(r"assets//frame0")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -21,10 +26,45 @@ def handle_button_press(btn_name):
     if btn_name == "cpu":
         cpu_btn_clicked()
         current_window = cpu_page(window)
+    if btn_name == "gpu":
+        gpu_btn_clicked()
+        current_window = gpu_page(window)
+    if btn_name == "ram":
+        ram_btn_clicked()
+        current_window = ram_page(window)
+    if btn_name == "disk":
+        disk_btn_clicked()
+        current_window = disk_page(window)
+    if btn_name == "benchmarking":
+        benchmark_btn_clicked()
+        current_window = benchmark_page(window)
+    if btn_name == "about":
+        about_btn_clicked()
+        current_window = about_page(window)
         
 def cpu_btn_clicked():
     print("cpu button clicked")
-    canvas.itemconfig(page_navigator, text="cpu")
+    # canvas.itemconfig(page_navigator, text="cpu")
+    sidebar_navigator.place(x=0, y=133)
+def gpu_btn_clicked():
+    print("gpu button clicked")
+    # canvas.itemconfig(page_navigator, text="cpu")
+    sidebar_navigator.place(x=0, y=133)
+def ram_btn_clicked():
+    print("ram button clicked")
+    # canvas.itemconfig(page_navigator, text="cpu")
+    sidebar_navigator.place(x=0, y=133)
+def disk_btn_clicked():
+    print("disk button clicked")
+    # canvas.itemconfig(page_navigator, text="cpu")
+    sidebar_navigator.place(x=0, y=133)
+def benchmark_btn_clicked():
+    print("benchmark button clicked")
+    # canvas.itemconfig(page_navigator, text="cpu")
+    sidebar_navigator.place(x=0, y=133)
+def about_btn_clicked():
+    print("about button clicked")
+    # canvas.itemconfig(page_navigator, text="cpu")
     sidebar_navigator.place(x=0, y=133)
 
 window = Tk()
@@ -55,15 +95,15 @@ current_window = cpu_page(window)
 
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
-button_1 = Button(
+btn_about = Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
+    command=lambda: handle_button_press("about"),
     relief="flat"
 )
 
-button_1.place(
+btn_about.place(
     x=65.0,
     y=641.0,
     width=175.0,
@@ -72,15 +112,15 @@ button_1.place(
 
 button_image_2 = PhotoImage(
     file=relative_to_assets("button_2.png"))
-button_2 = Button(
+btn_benchmarking = Button(
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: handle_button_press("cpu"),
+    command=lambda: handle_button_press("benchmarking"),
     relief="flat"
 )
 
-button_2.place(
+btn_benchmarking.place(
     x=37.0,
     y=362.0,
     width=225.0,
@@ -143,7 +183,7 @@ canvas.create_rectangle(
     fill="#DFBAC7",
     outline="") ##Underline
 
-canvas.create_rectangle(
+sys_info_underline = canvas.create_rectangle(
     78.0,
     157.0,
     219.0,
@@ -153,15 +193,15 @@ canvas.create_rectangle(
 
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
-button_3 = Button(
+btn_disk = Button(
     image=button_image_3,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_3 clicked"),
+    command=lambda: handle_button_press("disk"),
     relief="flat"
 )
 
-button_3.place(
+btn_disk.place(
     x=39.0,
     y=307.0,
     width=225.0,
@@ -170,14 +210,14 @@ button_3.place(
 
 button_image_4 = PhotoImage(
     file=relative_to_assets("button_4.png"))
-button_4 = Button(
+btn_gpu = Button(
     image=button_image_4,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_4 clicked"),
+    command=lambda: handle_button_press("gpu"),
     relief="flat"
 )
-button_4.place(
+btn_gpu.place(
     x=37.0,
     y=255.0,
     width=225.0,
@@ -186,14 +226,14 @@ button_4.place(
 
 button_image_5 = PhotoImage(
     file=relative_to_assets("button_5.png"))
-button_5 = Button(
+btn_ram = Button(
     image=button_image_5,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_5 clicked"),
+    command=lambda: handle_button_press("ram"),
     relief="flat"
 )
-button_5.place(
+btn_ram.place(
     x=39.0,
     y=209.0,
     width=225.0,
@@ -202,14 +242,14 @@ button_5.place(
 
 button_image_6 = PhotoImage(
     file=relative_to_assets("button_6.png"))
-button_6 = Button(
+btn_cpu = Button(
     image=button_image_6,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_6 clicked"),
+    command=lambda: handle_button_press("cpu"),
     relief="flat"
 )
-button_6.place(
+btn_cpu.place(
     x=39.0,
     y=160.0,
     width=225.0,
@@ -218,14 +258,14 @@ button_6.place(
 
 button_image_7 = PhotoImage(
     file=relative_to_assets("button_7.png"))
-button_7 = Button(
+btn_sys_info = Button(
     image=button_image_7,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: print("button_7 clicked"),
     relief="flat"
 )
-button_7.place(
+btn_sys_info.place(
     x=37.0,
     y=112.0,
     width=225.0,
@@ -238,7 +278,7 @@ canvas.create_text(
     anchor="nw",
     text="MinkBench",
     fill="#DFBAC7",
-    font=("Inter ExtraBold", 36 * -1)
+    font=("Montserrat ExtraBold", 30 * -1)
 )
 
 canvas.create_rectangle(
@@ -254,9 +294,9 @@ sidebar_navigator = Frame(background="#FFFFFF")
 sidebar_navigator.place(x=0, y=133, height=47, width=7)
 
 # page_navigator
-page_navigator = canvas.create_text(
-    52.0, 80.0, anchor="nw", text="cpu", fill="#FFFFFF", font=("Inter Bold", 24 * -1)
-)
+# page_navigator = canvas.create_text(
+#     52.0, 80.0, anchor="nw", text="cpu", fill="#FFFFFF", font=("Inter Bold", 24 * -1)
+# )
 
 window.resizable(False, False)
 window.mainloop()

@@ -23,9 +23,11 @@ global y
 y = []
 
 
-def cpu_usage():
-    print("cpu usage is", psutil.cpu_percent())
+def gpu_usage():
+    print("gpu usage is", psutil.cpu_percent())
     return np.random.randint(0, 100)
+
+
 
 
 counter = count(0, 1)
@@ -44,7 +46,7 @@ def relative_to_assets(path: str) -> Path:
 # window.configure(bg="#010101")
 
 
-def cpu_page(parent):
+def gpu_page(parent):
     usage = 0
     global update
 
@@ -149,7 +151,7 @@ def cpu_page(parent):
         487.0,
         466.0,
         anchor="nw",
-        text="CPU Voltage",
+        text="GPU Voltage",
         fill="#DFBAC7",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -158,7 +160,7 @@ def cpu_page(parent):
         363.0,
         16.0,
         anchor="nw",
-        text="CPU Statistics",
+        text="GPU Statistics",
         fill="#DFBAC7",
         font=("Inter Bold", 24 * -1),
     )
@@ -224,7 +226,7 @@ def cpu_page(parent):
         724.0,
         466.0,
         anchor="nw",
-        text="CPU Usage",
+        text="GPU Usage",
         fill="#DFBAC7",
         font=("MontserratRoman Medium", 16 * -1),
     )
