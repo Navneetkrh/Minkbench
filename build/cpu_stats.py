@@ -14,6 +14,7 @@ from matplotlib import style
 from data import *
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.animation import FuncAnimation
+from backend.test import battery
 
 from itertools import count
 

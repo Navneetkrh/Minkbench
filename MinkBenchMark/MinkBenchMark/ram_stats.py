@@ -24,8 +24,9 @@ y = []
 
 
 def ram_usage():
-    print("ram usage is", psutil.cpu_percent())
-    return np.random.randint(0, 100)
+    print("ram usage is", psutil.virtual_memory().percent)
+    # return np.random.randint(0, 100)
+    return psutil.virtual_memory().percent
 
 
 counter = count(0, 1)
@@ -50,12 +51,14 @@ def ram_page(parent):
 
     def update():
         global usage
-        new_usage = psutil.cpu_percent()
+        new_usage = psutil.virtual_memory().percent
         x.append(next(counter))
         y.append(new_usage)
 
         usage = new_usage
         canvas.itemconfig(tagOrId=usage_entry, text=str(new_usage) + "%")
+        canvas.itemconfig(tagOrId=Curr_speed, text=str(round(psutil.cpu_freq().current / 1000,2)) + "GHz")
+        canvas.itemconfig(tagOrId=Curr_battery, text=str(round(psutil.sensors_battery().percent,2)) + "%")
         # only plot last 60 points
 
         plot()
@@ -149,7 +152,7 @@ def ram_page(parent):
         487.0,
         466.0,
         anchor="nw",
-        text="RAM Voltage",
+        text="Battery",
         fill="#DFBAC7",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -163,7 +166,7 @@ def ram_page(parent):
         font=("Inter Bold", 24 * -1),
     )
 
-    canvas.create_text(
+    Curr_battery=canvas.create_text(
         630.0,
         466.0,
         anchor="nw",
@@ -180,7 +183,7 @@ def ram_page(parent):
     image_image_5 = PhotoImage(file=relative_to_assets("image_5.png"))
     image_5 = canvas.create_image(354.0, 478.0, image=image_image_5)
 
-    canvas.create_text(
+    Curr_speed=canvas.create_text(
         372.0,
         466.0,
         anchor="nw",
@@ -215,7 +218,7 @@ def ram_page(parent):
         23.0,
         466.0,
         anchor="nw",
-        text="Temperature",
+        text="Ram Usage",
         fill="#DFBAC7",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -224,7 +227,7 @@ def ram_page(parent):
         724.0,
         466.0,
         anchor="nw",
-        text="RAM Usage",
+        text="Temperature",
         fill="#DFBAC7",
         font=("MontserratRoman Medium", 16 * -1),
     )

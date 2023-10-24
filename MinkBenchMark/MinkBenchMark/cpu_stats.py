@@ -17,15 +17,28 @@ from matplotlib.animation import FuncAnimation
 
 from itertools import count
 
+from backend.test import battery
+
+
 global x
 x = []
 global y
 y = []
 
 
+
+# def temp(data):
+#     sensor1 = data['nvme']
+#     sensor2 = data['nvme']
+#     avg_temp = (sensor1[1][1] + sensor2[1][1])/2
+#     return avg_temp
+
+# data = psutil.sensors_temperatures()
+
 def cpu_usage():
     print("cpu usage is", psutil.cpu_percent())
-    return np.random.randint(0, 100)
+    # return np.random.randint(0, 100)
+    return psutil.cpu_percent()
 
 
 counter = count(0, 1)
@@ -56,8 +69,20 @@ def cpu_page(parent):
 
         usage = new_usage
         canvas.itemconfig(tagOrId=usage_entry, text=str(new_usage) + "%")
+        
+        # take average of sensor1 and sensor2 temperature
+        # avg_temp = (psutil.sensors_temperatures()['coretemp'][0].current + psutil.sensors_temperatures()['coretemp'][1].current)/2
         # only plot last 60 points
-
+        # canvas.itemconfig(clock_speed, text=str(psutil.cpu_freq().current/1000)+"GHz")
+        canvas.itemconfig(battery_percent, text=str(round(psutil.sensors_battery().percent,2))+"%")
+        canvas.itemconfig(Curr_speed, text=str(round(psutil.cpu_freq().current/1000,2))+"GHz")
+        canvas.itemconfig(curr_temp, text=str((psutil.sensors_temperatures()['nvme'][1][1]+psutil.sensors_temperatures()['nvme'][2][1])/2)+"°C")
+        canvas.itemconfig(phy_cores, text=str(psutil.cpu_count(logical=False)))
+        canvas.itemconfig(log_cores, text=str(psutil.cpu_count(logical=True)))
+        canvas.itemconfig(max_speed, text=str(round(psutil.cpu_freq().max/1000,2))+"GHz")
+        canvas.itemconfig(ram, text=str(round(psutil.virtual_memory().total/(1024**3),2))+"GB")
+        canvas.itemconfig(sec_mem, text=str(round(psutil.disk_usage('/').total/(1024**3),2))+"GB")
+        canvas.itemconfig(disk, text=str(len(psutil.disk_partitions())))
         plot()
 
         canvas.itemconfig(tagOrId=mgraph, figure=fig)
@@ -109,7 +134,7 @@ def cpu_page(parent):
         29.0,
         529.0,
         anchor="nw",
-        text="Base Speed",
+        text="Max Speed",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -127,7 +152,7 @@ def cpu_page(parent):
         29.0,
         568.0,
         anchor="nw",
-        text="Sockets",
+        text="Ram",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -136,7 +161,7 @@ def cpu_page(parent):
         29.0,
         607.0,
         anchor="nw",
-        text="Cores",
+        text="Physical Cores",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -149,7 +174,7 @@ def cpu_page(parent):
         487.0,
         466.0,
         anchor="nw",
-        text="CPU Voltage",
+        text="Battery",
         fill="#DFBAC7",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -163,7 +188,7 @@ def cpu_page(parent):
         font=("Inter Bold", 24 * -1),
     )
 
-    canvas.create_text(
+    battery_percent = canvas.create_text(
         630.0,
         466.0,
         anchor="nw",
@@ -180,7 +205,7 @@ def cpu_page(parent):
     image_image_5 = PhotoImage(file=relative_to_assets("image_5.png"))
     image_5 = canvas.create_image(354.0, 478.0, image=image_image_5)
 
-    canvas.create_text(
+    Curr_speed=canvas.create_text(
         372.0,
         466.0,
         anchor="nw",
@@ -206,7 +231,7 @@ def cpu_page(parent):
         169.0,
         466.0,
         anchor="nw",
-        text="50°C",
+        text="5",
         fill="#FFFFFF",
         font=("MontserratRoman Medium", 20 * -1),
     )
@@ -215,7 +240,7 @@ def cpu_page(parent):
         23.0,
         466.0,
         anchor="nw",
-        text="Temperature",
+        text="Cpu Usage",
         fill="#DFBAC7",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -224,12 +249,12 @@ def cpu_page(parent):
         724.0,
         466.0,
         anchor="nw",
-        text="CPU Usage",
+        text="Temperature",
         fill="#DFBAC7",
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
+    curr_temp = canvas.create_text(
         859.0,
         466.0,
         anchor="nw",
@@ -238,7 +263,7 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
+    max_speed=canvas.create_text(
         161.0,
         529.0,
         anchor="nw",
@@ -247,8 +272,8 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
-        192.0,
+    ram=canvas.create_text(
+        160.0,
         568.0,
         anchor="nw",
         text="1",
@@ -256,7 +281,7 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
+    phy_cores=canvas.create_text(
         190.0,
         607.0,
         anchor="nw",
@@ -269,7 +294,7 @@ def cpu_page(parent):
         274.0,
         529.0,
         anchor="nw",
-        text="L1 Cache",
+        text="C://",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -278,7 +303,7 @@ def cpu_page(parent):
         274.0,
         568.0,
         anchor="nw",
-        text="L2 Cache",
+        text="Disks",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -292,7 +317,7 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
+    sec_mem=canvas.create_text(
         400.0,
         529.0,
         anchor="nw",
@@ -301,7 +326,7 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
+    disk=canvas.create_text(
         397.0,
         568.0,
         anchor="nw",
@@ -373,7 +398,7 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
+    log_cores=canvas.create_text(
         888.0,
         536.0,
         anchor="nw",

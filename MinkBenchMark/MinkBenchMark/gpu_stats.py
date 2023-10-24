@@ -54,10 +54,11 @@ def gpu_page(parent):
         global usage
         new_usage = psutil.cpu_percent()
         x.append(next(counter))
-        y.append(new_usage)
+        y.append(gpu_usage())
 
         usage = new_usage
         canvas.itemconfig(tagOrId=usage_entry, text=str(new_usage) + "%")
+        canvas.itemconfig(tagOrId=voltage, text=str(gpu_usage()) + "W")
         # only plot last 60 points
 
         plot()
@@ -165,7 +166,7 @@ def gpu_page(parent):
         font=("Inter Bold", 24 * -1),
     )
 
-    canvas.create_text(
+    voltage=canvas.create_text(
         630.0,
         466.0,
         anchor="nw",

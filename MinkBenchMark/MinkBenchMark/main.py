@@ -183,7 +183,7 @@ canvas.create_rectangle(
     fill="#DFBAC7",
     outline="") ##Underline
 
-sys_info_underline = canvas.create_rectangle(
+sys_info_underline =canvas.create_rectangle(
     78.0,
     157.0,
     219.0,
