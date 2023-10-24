@@ -3,8 +3,10 @@ from cpu_stats import cpu_page
 from gpu_stats import gpu_page
 from ram_stats import ram_page
 from disk_stats import disk_page
-from benchmark import benchmark_page
-from about import about_page
+from bechmark_3 import benchmark_page
+from about_4 import about_page
+from system_2 import sys_info_page
+
 
 from pathlib import Path
 
@@ -59,6 +61,11 @@ def handle_button_press(btn_name):
         about_btn_clicked()
         canvas.itemconfig(about_underline,state='normal')
         current_window = about_page(window)
+    elif btn_name == "sys_info":
+        sys_info_btn_clicked()
+        canvas.itemconfig(sys_info_underline,state='normal')
+        current_window = sys_info_page(window)
+    
     
         
 def cpu_btn_clicked():
@@ -83,6 +90,10 @@ def benchmark_btn_clicked():
     sidebar_navigator.place(x=0, y=133)
 def about_btn_clicked():
     print("about button clicked")
+    # canvas.itemconfig(page_navigator, text="cpu")
+    sidebar_navigator.place(x=0, y=133)
+def sys_info_btn_clicked():
+    print("sys_info button clicked")
     # canvas.itemconfig(page_navigator, text="cpu")
     sidebar_navigator.place(x=0, y=133)
 
@@ -110,7 +121,7 @@ image_1 = canvas.create_image(
     image=image_image_1
 )
 
-current_window = cpu_page(window)
+current_window = sys_info_page(window)
 
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
@@ -146,7 +157,7 @@ btn_benchmarking.place(
     height=40.0
 )
 
-canvas.create_rectangle(
+sys_info_underline = canvas.create_rectangle(
     38.0,
     356.0,
     264.0000305175781,
@@ -281,7 +292,7 @@ btn_sys_info = Button(
     image=button_image_7,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_7 clicked"),
+    command=lambda: handle_button_press("sys_info"),
     relief="flat"
 )
 btn_sys_info.place(
@@ -317,7 +328,7 @@ sidebar_navigator.place(x=0, y=133, height=47, width=7)
 #     52.0, 80.0, anchor="nw", text="cpu", fill="#FFFFFF", font=("Inter Bold", 24 * -1)
 # )
 hide_underline()
-canvas.itemconfig(cpu_underline,state='normal')
+canvas.itemconfig(sys_info_underline,state='normal')
 
 window.resizable(False, False)
 window.mainloop()

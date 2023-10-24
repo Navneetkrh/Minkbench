@@ -76,6 +76,7 @@ def ram_page(parent):
         ax.set_title("RAM Usage chart", color="white", fontweight="bold")
         ax.set_xlabel("Time", color="white")
         ax.set_ylabel("Usage %", color="white")
+        ax.set_ylim(0, 100)
         ax.tick_params(axis="both", colors="white")
         ax.grid(color="#A8A4C3", linestyle="dashed", linewidth=0.5)
         mgraph.draw()

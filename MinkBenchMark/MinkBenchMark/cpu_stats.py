@@ -56,6 +56,23 @@ def relative_to_assets(path: str) -> Path:
 # window.geometry("937x693")
 # window.configure(bg="#010101")
 
+import subprocess
+
+def get_l2_capacity():
+    result = subprocess.check_output("lscpu | grep -E 'L2|L3' | awk '{print $3}'", shell=True)
+    cache_info = result.decode('utf-8').strip().split('\n')
+    l2_cache_size = cache_info[0]
+    l3_cache_size = cache_info[1] if len(cache_info) > 1 else "N/A"
+    return l2_cache_size
+
+def get_l3_capacity():
+    result = subprocess.check_output("lscpu | grep -E 'L2|L3' | awk '{print $3}'", shell=True)
+    cache_info = result.decode('utf-8').strip().split('\n')
+    l2_cache_size = cache_info[0]
+    l3_cache_size = cache_info[1] if len(cache_info) > 1 else "N/A"
+    return l3_cache_size
+
+
 
 def cpu_page(parent):
     usage = 0
@@ -80,9 +97,9 @@ def cpu_page(parent):
         canvas.itemconfig(phy_cores, text=str(psutil.cpu_count(logical=False)))
         canvas.itemconfig(log_cores, text=str(psutil.cpu_count(logical=True)))
         canvas.itemconfig(max_speed, text=str(round(psutil.cpu_freq().max/1000,2))+"GHz")
-        canvas.itemconfig(ram, text=str(round(psutil.virtual_memory().total/(1024**3),2))+"GB")
-        canvas.itemconfig(sec_mem, text=str(round(psutil.disk_usage('/').total/(1024**3),2))+"GB")
-        canvas.itemconfig(disk, text=str(len(psutil.disk_partitions())))
+        # canvas.itemconfig(ram, text=str(round(psutil.virtual_memory().total/(1024**3),2))+"GB")
+        canvas.itemconfig(L3_mem, text=str(get_l3_capacity())+"GB")
+        canvas.itemconfig(L2_mem, text=str(get_l2_capacity())+"GB")
         plot()
 
         canvas.itemconfig(tagOrId=mgraph, figure=fig)
@@ -120,6 +137,7 @@ def cpu_page(parent):
     ax.set_facecolor("#1A1A25")
     ax.fill_between(x, y, alpha=0.5)
     ax.tick_params(axis="both", colors="white")
+    ax.set_ylim(0, 100)
     ax.grid(color="#DEBDBF", linestyle="dashed", linewidth=0.5)
     mgraph = FigureCanvasTkAgg(fig, master=canvas)
     mgraph.get_tk_widget().place(x=40, y=75)
@@ -152,14 +170,14 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
-        29.0,
-        568.0,
-        anchor="nw",
-        text="Ram",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     29.0,
+    #     568.0,
+    #     anchor="nw",
+    #     text="Ram",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
     canvas.create_text(
         29.0,
@@ -276,14 +294,14 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    ram=canvas.create_text(
-        160.0,
-        568.0,
-        anchor="nw",
-        text="1",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # ram=canvas.create_text(
+    #     160.0,
+    #     568.0,
+    #     anchor="nw",
+    #     text="1",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
     phy_cores=canvas.create_text(
         190.0,
@@ -298,7 +316,7 @@ def cpu_page(parent):
         274.0,
         529.0,
         anchor="nw",
-        text="C://",
+        text="L3 cache",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -307,7 +325,7 @@ def cpu_page(parent):
         274.0,
         568.0,
         anchor="nw",
-        text="Disks",
+        text="L2 cache",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -316,12 +334,12 @@ def cpu_page(parent):
         274.0,
         607.0,
         anchor="nw",
-        text="Interupts",
+        text="Cpu Interupts",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    sec_mem=canvas.create_text(
+    L3_mem=canvas.create_text(
         400.0,
         529.0,
         anchor="nw",
@@ -330,7 +348,7 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    disk=canvas.create_text(
+    L2_mem=canvas.create_text(
         397.0,
         568.0,
         anchor="nw",
@@ -352,7 +370,7 @@ def cpu_page(parent):
         491.0,
         529.0,
         anchor="nw",
-        text="Switches",
+        text="Context Switches",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -366,14 +384,14 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
-        499.0,
-        607.0,
-        anchor="nw",
-        text="Context Switches",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     499.0,
+    #     607.0,
+    #     anchor="nw",
+    #     text="Context Switches",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
     canvas.create_text(
         635.0,
@@ -393,14 +411,14 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    con_swt=canvas.create_text(
-        720.0,
-        607.0,
-        anchor="nw",
-        text="158479",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # con_swt=canvas.create_text(
+    #     720.0,
+    #     607.0,
+    #     anchor="nw",
+    #     text="158479",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
     log_cores=canvas.create_text(
         888.0,

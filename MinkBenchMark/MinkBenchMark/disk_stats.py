@@ -62,6 +62,12 @@ def disk_page(parent):
         # plot()
 
         # canvas.itemconfig(tagOrId=mgraph, figure=fig)
+        canvas.itemconfig(space, text=str(round(psutil.disk_usage('/').total/(1024**3),2))+"GB")
+        canvas.itemconfig(read_c, text=str(psutil.disk_io_counters().read_count))
+        canvas.itemconfig(write_c, text=str(psutil.disk_io_counters().write_count))
+        canvas.itemconfig(part, text=str(len(psutil.disk_partitions())))
+        canvas.itemconfig(read_b, text=str(psutil.disk_io_counters().read_bytes))
+        canvas.itemconfig(write_b, text=str(psutil.disk_io_counters().write_bytes))
 
         canvas.after(500, update)
         
@@ -266,7 +272,7 @@ def disk_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
+    read_c=canvas.create_text(
         192.0,
         568.0,
         anchor="nw",
@@ -275,7 +281,7 @@ def disk_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
+    write_c=canvas.create_text(
         190.0,
         607.0,
         anchor="nw",
@@ -365,7 +371,7 @@ def disk_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
+    part=canvas.create_text(
         635.0,
         529.0,
         anchor="nw",
@@ -374,7 +380,7 @@ def disk_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
+    write_b=canvas.create_text(
         627.0,
         568.0,
         anchor="nw",
@@ -383,7 +389,7 @@ def disk_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
+    read_b=canvas.create_text(
         619.0,
         607.0,
         anchor="nw",
