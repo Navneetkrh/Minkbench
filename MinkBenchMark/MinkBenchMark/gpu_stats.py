@@ -23,9 +23,9 @@ global y
 y = []
 
 
-def gpu_usage():
-    print("gpu usage is", psutil.cpu_percent())
-    return np.random.randint(0, 100)
+# def gpu_usage():
+#     print("gpu usage is", psutil.cpu_percent())
+#     return np.random.randint(0, 100)
 
 
 

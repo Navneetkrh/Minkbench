@@ -14,18 +14,19 @@ from matplotlib import style
 from data import *
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.animation import FuncAnimation
-
 from itertools import count
 
 global x
-x = ['A', 'B', 'C', 'D']# label
+x = ['Used','Free']# label
 global y
-y = [15,30,45,10] #data
+y = [0,0] #data
+y[0] = psutil.disk_usage('/').percent
+y[1] = 100-y[0]
 
 
-def disk_usage():
-    # extract 
-    pass
+# def disk_usage():
+#     # extract 
+#     pass
 
 
 counter = count(0, 1)
@@ -49,18 +50,18 @@ def disk_page(parent):
     global update
 
     def update():
-        global usage
-        new_usage = psutil.cpu_percent()
-        x.append(next(counter))
-        y.append(new_usage)
+        # global usage
+        # new_usage = psutil.cpu_percent()
+        # x.append(next(counter))
+        # y.append(new_usage)
 
-        usage = new_usage
-        canvas.itemconfig(tagOrId=usage_entry, text=str(new_usage) + "%")
+        # usage = new_usage
+        # canvas.itemconfig(tagOrId=usage_entry, text=str(new_usage) + "%")
         # only plot last 60 points
 
         # plot()
 
-        canvas.itemconfig(tagOrId=mgraph, figure=fig)
+        # canvas.itemconfig(tagOrId=mgraph, figure=fig)
 
         canvas.after(500, update)
         
@@ -127,25 +128,25 @@ def disk_page(parent):
         29.0,
         529.0,
         anchor="nw",
-        text="Base Speed",
+        text="C Space",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
-        731.0,
-        524.0,
-        anchor="nw",
-        text="Logical\nProcessors",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     731.0,
+    #     524.0,
+    #     anchor="nw",
+    #     text="Partitions",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
     canvas.create_text(
         29.0,
         568.0,
         anchor="nw",
-        text="Sockets",
+        text="Read Counts",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -154,23 +155,23 @@ def disk_page(parent):
         29.0,
         607.0,
         anchor="nw",
-        text="Cores",
+        text="Write Counts",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    global image_image_3
-    image_image_3 = PhotoImage(file=relative_to_assets("image_3.png"))
-    image_3 = canvas.create_image(584.0, 478.0, image=image_image_3)
+    # global image_image_3
+    # image_image_3 = PhotoImage(file=relative_to_assets("image_3.png"))
+    # image_3 = canvas.create_image(584.0, 478.0, image=image_image_3)
 
-    canvas.create_text(
-        487.0,
-        466.0,
-        anchor="nw",
-        text="Disk Voltage",
-        fill="#DFBAC7",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     487.0,
+    #     466.0,
+    #     anchor="nw",
+    #     text="Disk Voltage",
+    #     fill="#DFBAC7",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
     canvas.create_text(
         363.0,
@@ -181,82 +182,82 @@ def disk_page(parent):
         font=("Inter Bold", 24 * -1),
     )
 
-    canvas.create_text(
-        630.0,
-        466.0,
-        anchor="nw",
-        text="25W",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     630.0,
+    #     466.0,
+    #     anchor="nw",
+    #     text="25W",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    global image_image_4
-    image_image_4 = PhotoImage(file=relative_to_assets("image_4.png"))
-    image_4 = canvas.create_image(814.0, 478.0, image=image_image_4)
+    # global image_image_4
+    # image_image_4 = PhotoImage(file=relative_to_assets("image_4.png"))
+    # image_4 = canvas.create_image(814.0, 478.0, image=image_image_4)
 
-    global image_image_5
-    image_image_5 = PhotoImage(file=relative_to_assets("image_5.png"))
-    image_5 = canvas.create_image(354.0, 478.0, image=image_image_5)
+    # global image_image_5
+    # image_image_5 = PhotoImage(file=relative_to_assets("image_5.png"))
+    # image_5 = canvas.create_image(354.0, 478.0, image=image_image_5)
 
-    canvas.create_text(
-        372.0,
-        466.0,
-        anchor="nw",
-        text="3.5GHz",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     372.0,
+    #     466.0,
+    #     anchor="nw",
+    #     text="3.5GHz",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        261.0,
-        466.0,
-        anchor="nw",
-        text="Speed",
-        fill="#DFBAC7",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     261.0,
+    #     466.0,
+    #     anchor="nw",
+    #     text="Speed",
+    #     fill="#DFBAC7",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    global image_image_6
-    image_image_6 = PhotoImage(file=relative_to_assets("image_6.png"))
-    image_6 = canvas.create_image(124.0, 478.0, image=image_image_6)
+    # global image_image_6
+    # image_image_6 = PhotoImage(file=relative_to_assets("image_6.png"))
+    # image_6 = canvas.create_image(124.0, 478.0, image=image_image_6)
 
-    usage_entry=canvas.create_text(
-        169.0,
-        466.0,
-        anchor="nw",
-        text="50°C",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 20 * -1),
-    )
+    # usage_entry=canvas.create_text(
+    #     169.0,
+    #     466.0,
+    #     anchor="nw",
+    #     text="50°C",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 20 * -1),
+    # )
 
-    canvas.create_text(
-        23.0,
-        466.0,
-        anchor="nw",
-        text="Temperature",
-        fill="#DFBAC7",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     23.0,
+    #     466.0,
+    #     anchor="nw",
+    #     text="Temperature",
+    #     fill="#DFBAC7",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        724.0,
-        466.0,
-        anchor="nw",
-        text="Disk Usage",
-        fill="#DFBAC7",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     724.0,
+    #     466.0,
+    #     anchor="nw",
+    #     text="Disk Usage",
+    #     fill="#DFBAC7",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        859.0,
-        466.0,
-        anchor="nw",
-        text="50°C",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     859.0,
+    #     466.0,
+    #     anchor="nw",
+    #     text="50°C",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
+    space=canvas.create_text(
         161.0,
         529.0,
         anchor="nw",
@@ -283,65 +284,65 @@ def disk_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
-        274.0,
-        529.0,
-        anchor="nw",
-        text="L1 Cache",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     274.0,
+    #     529.0,
+    #     anchor="nw",
+    #     text="Read Bytes",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        274.0,
-        568.0,
-        anchor="nw",
-        text="L2 Cache",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     274.0,
+    #     568.0,
+    #     anchor="nw",
+    #     text="Write Bytes",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        274.0,
-        607.0,
-        anchor="nw",
-        text="L3 Cache",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     274.0,
+    #     607.0,
+    #     anchor="nw",
+    #     text="L3 Cache",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        400.0,
-        529.0,
-        anchor="nw",
-        text="512KB",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     400.0,
+    #     529.0,
+    #     anchor="nw",
+    #     text="512KB",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        397.0,
-        568.0,
-        anchor="nw",
-        text="4.0MB",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     397.0,
+    #     568.0,
+    #     anchor="nw",
+    #     text="4.0MB",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        394.0,
-        607.0,
-        anchor="nw",
-        text="16.0MB",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     394.0,
+    #     607.0,
+    #     anchor="nw",
+    #     text="16.0MB",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
     canvas.create_text(
         491.0,
         529.0,
         anchor="nw",
-        text="Processes",
+        text="Partitions",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -350,7 +351,7 @@ def disk_page(parent):
         501.0,
         568.0,
         anchor="nw",
-        text="Threads",
+        text="Write Bytes",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -359,7 +360,7 @@ def disk_page(parent):
         499.0,
         607.0,
         anchor="nw",
-        text="Handles ",
+        text="Read Bytes ",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -391,12 +392,12 @@ def disk_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
-        888.0,
-        536.0,
-        anchor="nw",
-        text="16",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     888.0,
+    #     536.0,
+    #     anchor="nw",
+    #     text="16",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
     update()

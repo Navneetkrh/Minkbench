@@ -35,10 +35,10 @@ y = []
 
 # data = psutil.sensors_temperatures()
 
-def cpu_usage():
-    print("cpu usage is", psutil.cpu_percent())
-    # return np.random.randint(0, 100)
-    return psutil.cpu_percent()
+# def cpu_usage():
+#     print("cpu usage is", psutil.cpu_percent())
+#     # return np.random.randint(0, 100)
+#     return psutil.cpu_percent()
 
 
 counter = count(0, 1)
