@@ -5,7 +5,7 @@ from pathlib import Path
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import *
 
 
 
@@ -16,12 +16,21 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"assets\frame0")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
+def handle_button_press(btn_name):
+    global current_window
+    if btn_name == "cpu":
+        cpu_btn_clicked()
+        current_window = cpu_page(window)
+        
+def cpu_btn_clicked():
+    print("cpu button clicked")
+    canvas.itemconfig(page_navigator, text="cpu")
+    sidebar_navigator.place(x=0, y=133)
 
 window = Tk()
-
+window.title("Mink")
 window.geometry("1280x720")
 window.configure(bg = "#010101")
-
 
 canvas = Canvas(
     window,
@@ -42,6 +51,8 @@ image_1 = canvas.create_image(
     image=image_image_1
 )
 
+current_window = cpu_page(window)
+
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))
 button_1 = Button(
@@ -51,6 +62,7 @@ button_1 = Button(
     command=lambda: print("button_1 clicked"),
     relief="flat"
 )
+
 button_1.place(
     x=65.0,
     y=641.0,
@@ -64,9 +76,10 @@ button_2 = Button(
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_2 clicked"),
+    command=lambda: handle_button_press("cpu"),
     relief="flat"
 )
+
 button_2.place(
     x=37.0,
     y=362.0,
@@ -88,7 +101,7 @@ canvas.create_rectangle(
     249.0,
     404.0,
     fill="#DFBAC7",
-    outline="")
+    outline="") ##Underline
 
 canvas.create_rectangle(
     125.0,
@@ -96,7 +109,7 @@ canvas.create_rectangle(
     205.99981689453125,
     690.1702117919922,
     fill="#DFBAC7",
-    outline="")
+    outline="") ##Underline
 
 canvas.create_rectangle(
     102.0,
@@ -104,7 +117,7 @@ canvas.create_rectangle(
     157.9998779296875,
     301.1170196533203,
     fill="#DFBAC7",
-    outline="")
+    outline="")   ##Underline
 
 canvas.create_rectangle(
     101.99526977539062,
@@ -112,7 +125,7 @@ canvas.create_rectangle(
     158.00430297851562,
     346.4389419555664,
     fill="#DFBAC7",
-    outline="")
+    outline="")  ##Underline
 
 canvas.create_rectangle(
     102.00006103515625,
@@ -120,7 +133,7 @@ canvas.create_rectangle(
     160.00003051757812,
     253.12127685546875,
     fill="#DFBAC7",
-    outline="")
+    outline="") ##Underline
 
 canvas.create_rectangle(
     101.995849609375,
@@ -128,7 +141,7 @@ canvas.create_rectangle(
     154.73220825195312,
     203.71759033203125,
     fill="#DFBAC7",
-    outline="")
+    outline="") ##Underline
 
 canvas.create_rectangle(
     78.0,
@@ -136,7 +149,7 @@ canvas.create_rectangle(
     219.0,
     158.0,
     fill="#DFBAC7",
-    outline="")
+    outline="") ##Underline
 
 button_image_3 = PhotoImage(
     file=relative_to_assets("button_3.png"))
@@ -147,6 +160,7 @@ button_3 = Button(
     command=lambda: print("button_3 clicked"),
     relief="flat"
 )
+
 button_3.place(
     x=39.0,
     y=307.0,
@@ -234,5 +248,15 @@ canvas.create_rectangle(
     707.0,
     fill="#010101",
     outline="")
+
+# sidebar_navigator
+sidebar_navigator = Frame(background="#FFFFFF")
+sidebar_navigator.place(x=0, y=133, height=47, width=7)
+
+# page_navigator
+page_navigator = canvas.create_text(
+    52.0, 80.0, anchor="nw", text="cpu", fill="#FFFFFF", font=("Inter Bold", 24 * -1)
+)
+
 window.resizable(False, False)
 window.mainloop()
