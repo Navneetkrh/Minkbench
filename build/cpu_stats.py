@@ -76,9 +76,9 @@ def cpu_page(parent):
         # if(len(x)>30):
         #     x.pop(0)
         #     y.pop(0)
-        print("len x",len(x))
-        print("len y",len(y))
-        print("x is",x)
+        # print("len x",len(x))
+        # print("len y",len(y))
+        # print("x is",x)
         if(len(x)>30):
             x.pop(0)
             y.pop(0)
