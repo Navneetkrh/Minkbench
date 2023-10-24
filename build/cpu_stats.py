@@ -19,26 +19,17 @@ from data import *
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.animation import FuncAnimation
 
+from itertools import count 
+global x
 x=[]
+global y
 y=[]
-# fig, ax = plt.subplots()
-# ax.plot(x,y)
-fig=Figure(figsize=(8,4),facecolor="#010101")
-ax=fig.add_subplot()
-counter=count(0,1)
 def cpu_usage():
+    print("cpu usage is",psutil.cpu_percent())
     return np.random.randint(0,100)
-def graph_update(i):
-    # idx=next(counter)
-#    append time and cpu usage to x and y
-    print("graph update called")
-    print("x is",x)
-    print("y is",y)
-    x.append(next(counter))
-    y.append(cpu_usage())
-    # plt.cla()
-    ax.fill_between(x,y,alpha=0.5)
-    plt.pause(0.001)
+counter=count(0,1)
+
+
  
 
 
@@ -59,12 +50,48 @@ def relative_to_assets(path: str) -> Path:
 
 def cpu_page(parent):
     usage=0
+    global update
     def update():
         global usage
         new_usage=psutil.cpu_percent()
+        x.append(next(counter))
+        y.append(new_usage)
+       
+        usage=new_usage
         canvas.itemconfig(tagOrId=usage_entry,text=str(new_usage)+"%") 
-        graph_update(counter)
-        canvas.after(1000,update)
+        # only plot last 60 points
+        
+        
+        plot()
+        
+        canvas.itemconfig(tagOrId=mgraph,figure=fig)
+        
+        canvas.after(500,update)
+    def plot():
+        # x.append(next(counter))
+        # y.append(cpu_usage())
+        # print("x is",x)
+        # print("y is",y)
+        # only plot last 30 points
+        # if(len(x)>30):
+        #     x.pop(0)
+        #     y.pop(0)
+        print("len x",len(x))
+        print("len y",len(y))
+        print("x is",x)
+        if(len(x)>30):
+            x.pop(0)
+            y.pop(0)
+        # clear the figure
+        # fig.clear()
+        
+        # ax.plot(x,y)
+        ax.cla()
+        ax.set_facecolor("#1A1A25")
+        ax.fill_between(x,y,alpha=0.5,color="#2b8da3")
+        ax.tick_params(axis='both', colors='white')
+        ax.grid(color='#A8A4C3', linestyle='dashed', linewidth=0.5)
+        mgraph.draw()
 
         
       
@@ -78,6 +105,19 @@ def cpu_page(parent):
         highlightthickness = 0,
         relief = "ridge"
     )
+
+    # adding figure badi mehnat se
+    global fig
+    fig=Figure(figsize=(8.5,3.5),facecolor="#1A1A25")
+    ax=fig.add_subplot()
+    ax.set_facecolor("#1A1A25")
+    ax.fill_between(x,y,alpha=0.5)
+    ax.tick_params(axis='both', colors='white')
+    ax.grid(color='#DEBDBF', linestyle='dashed', linewidth=0.5)
+    mgraph=FigureCanvasTkAgg(fig,master=canvas)
+    mgraph.get_tk_widget().place(x=40,y=75)
+
+
     # print path to assets
     print("output path is",OUTPUT_PATH )
     print("my path is",ASSETS_PATH)
@@ -213,6 +253,9 @@ def cpu_page(parent):
     )
     # get cpu usage
 
+    
+   
+
 
     update()
     
@@ -231,9 +274,9 @@ def cpu_page(parent):
 # ax.plot(x,y)
     
    
-    graph=FigureCanvasTkAgg(fig,master=canvas)
-    graph.draw()
-    graph.get_tk_widget().place(x=26,y=64)
+    # graph=FigureCanvasTkAgg(fig,master=canvas)
+    # graph.draw()
+    # graph.get_tk_widget().place(x=26,y=64)
 
 
     

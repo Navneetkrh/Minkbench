@@ -11,7 +11,7 @@ y=[]
 
 fig, ax = plt.subplots()
 
-ax.plot(x,y)
+# ax.plot(x,y)
 
 counter=count(0,1)
 
@@ -23,6 +23,9 @@ def update(i):
 #    append time and cpu usage to x and y
     x.append(next(counter))
     y.append(cpu_usage())
+    if(len(x)>20):
+            x.pop(0)
+            y.pop(0)
     plt.cla()
     ax.plot(x,y)
     plt.pause(0.001)
