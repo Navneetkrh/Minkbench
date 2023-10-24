@@ -95,6 +95,10 @@ def cpu_page(parent):
         ax.cla()
         ax.set_facecolor("#1A1A25")
         ax.fill_between(x, y, alpha=0.5, color="#2b8da3")
+        # label = "CPU Usage: " + str(usage) + "%"
+        ax.set_title("CPU Usage chart", color="white", fontweight="bold")
+        ax.set_xlabel("Time", color="white")
+        ax.set_ylabel("Usage %", color="white")
         ax.tick_params(axis="both", colors="white")
         ax.grid(color="#A8A4C3", linestyle="dashed", linewidth=0.5)
         mgraph.draw()
@@ -312,7 +316,7 @@ def cpu_page(parent):
         274.0,
         607.0,
         anchor="nw",
-        text="L3 Cache",
+        text="Interupts",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -348,7 +352,7 @@ def cpu_page(parent):
         491.0,
         529.0,
         anchor="nw",
-        text="Processes",
+        text="Switches",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -357,7 +361,7 @@ def cpu_page(parent):
         501.0,
         568.0,
         anchor="nw",
-        text="Threads",
+        text="Sys Calls",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -366,7 +370,7 @@ def cpu_page(parent):
         499.0,
         607.0,
         anchor="nw",
-        text="Handles ",
+        text="Context Switches",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -389,8 +393,8 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
-        619.0,
+    con_swt=canvas.create_text(
+        720.0,
         607.0,
         anchor="nw",
         text="158479",

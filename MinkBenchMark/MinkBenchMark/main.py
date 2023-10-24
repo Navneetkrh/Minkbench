@@ -17,30 +17,49 @@ from tkinter import *
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"assets//frame0")
 
+def hide_underline():
+    # canvas.itemconfig(id, state='hidden'/'normal') 
+    canvas.itemconfig(tagOrId=benchmarking_underline,state='hidden')
+    canvas.itemconfig(tagOrId=about_underline,state='hidden')
+    canvas.itemconfig(tagOrId=gpu_underline,state='hidden')
+    canvas.itemconfig(tagOrId=disk_underline,state='hidden')
+    canvas.itemconfig(tagOrId=ram_underline,state='hidden')
+    canvas.itemconfig(tagOrId=cpu_underline,state='hidden')
+    canvas.itemconfig(tagOrId=sys_info_underline,state='hidden')
+
+
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
 def handle_button_press(btn_name):
+    hide_underline()
     global current_window
     if btn_name == "cpu":
         cpu_btn_clicked()
+        canvas.itemconfig(cpu_underline,state='normal')
         current_window = cpu_page(window)
-    if btn_name == "gpu":
+    elif btn_name == "gpu":
         gpu_btn_clicked()
+        canvas.itemconfig(gpu_underline,state='normal')
         current_window = gpu_page(window)
-    if btn_name == "ram":
+    elif btn_name == "ram":
         ram_btn_clicked()
+        canvas.itemconfig(ram_underline,state='normal')
         current_window = ram_page(window)
-    if btn_name == "disk":
+    elif btn_name == "disk":
         disk_btn_clicked()
+        canvas.itemconfig(disk_underline,state='normal')
         current_window = disk_page(window)
-    if btn_name == "benchmarking":
+    elif btn_name == "benchmarking":
         benchmark_btn_clicked()
+        canvas.itemconfig(benchmarking_underline,state='normal')
         current_window = benchmark_page(window)
-    if btn_name == "about":
+    elif btn_name == "about":
         about_btn_clicked()
+        canvas.itemconfig(about_underline,state='normal')
         current_window = about_page(window)
+    
         
 def cpu_btn_clicked():
     print("cpu button clicked")
@@ -135,53 +154,53 @@ canvas.create_rectangle(
     fill="#3C3C45",
     outline="")
 
-canvas.create_rectangle(
+benchmarking_underline=canvas.create_rectangle(
     78.0,
     403.0,
     249.0,
     404.0,
     fill="#DFBAC7",
-    outline="") ##Underline
+    outline="") ##Benchamrking Underline
 
-canvas.create_rectangle(
+about_underline=canvas.create_rectangle(
     125.0,
     689.0,
     205.99981689453125,
     690.1702117919922,
     fill="#DFBAC7",
-    outline="") ##Underline
+    outline="") ##ABout Underline
 
-canvas.create_rectangle(
+gpu_underline=canvas.create_rectangle(
     102.0,
     300.0,
     157.9998779296875,
     301.1170196533203,
     fill="#DFBAC7",
-    outline="")   ##Underline
+    outline="")   ##GPU Underline
 
-canvas.create_rectangle(
+disk_underline=canvas.create_rectangle(
     101.99526977539062,
     343.5104217529297,
     158.00430297851562,
     346.4389419555664,
     fill="#DFBAC7",
-    outline="")  ##Underline
+    outline="")  ##DISK Underline
 
-canvas.create_rectangle(
+ram_underline=canvas.create_rectangle(
     102.00006103515625,
     251.87872314453125,
     160.00003051757812,
     253.12127685546875,
     fill="#DFBAC7",
-    outline="") ##Underline
+    outline="") ##RAM Underline
 
-canvas.create_rectangle(
+cpu_underline=canvas.create_rectangle(
     101.995849609375,
     200.69244384765625,
     154.73220825195312,
     203.71759033203125,
     fill="#DFBAC7",
-    outline="") ##Underline
+    outline="") ## CPU Underline
 
 sys_info_underline =canvas.create_rectangle(
     78.0,
@@ -297,6 +316,8 @@ sidebar_navigator.place(x=0, y=133, height=47, width=7)
 # page_navigator = canvas.create_text(
 #     52.0, 80.0, anchor="nw", text="cpu", fill="#FFFFFF", font=("Inter Bold", 24 * -1)
 # )
+hide_underline()
+canvas.itemconfig(cpu_underline,state='normal')
 
 window.resizable(False, False)
 window.mainloop()
