@@ -166,10 +166,10 @@ def cpu_page(parent):
     )
 
     canvas.create_text(
-        731.0,
-        524.0,
+        491.0,
+        568.0,
         anchor="nw",
-        text="Logical\nProcessors",
+        text="Logical Processors",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -374,14 +374,14 @@ def cpu_page(parent):
         491.0,
         529.0,
         anchor="nw",
-        text="Context \nSwitches",
+        text="Context Switches",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
 
     canvas.create_text(
-        501.0,
-        578.0,
+        29.0,
+        568.0,
         anchor="nw",
         text="Sys Calls",
         fill="#99999B",
@@ -398,7 +398,7 @@ def cpu_page(parent):
     # )
 
     con_swi=canvas.create_text(
-        635.0,
+        695.0,
         529.0,
         anchor="nw",
         text="369",
@@ -407,8 +407,8 @@ def cpu_page(parent):
     )
 
     calls=canvas.create_text(
-        627.0,
-        578.0,
+        127.0,
+        568.0,
         anchor="nw",
         text="6040",
         fill="#FFFFFF",
@@ -425,8 +425,8 @@ def cpu_page(parent):
     # )
 
     log_cores=canvas.create_text(
-        888.0,
-        536.0,
+        568.0,
+        568.0,
         anchor="nw",
         text="16",
         fill="#FFFFFF",
