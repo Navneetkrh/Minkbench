@@ -98,8 +98,11 @@ def cpu_page(parent):
         canvas.itemconfig(log_cores, text=str(psutil.cpu_count(logical=True)))
         canvas.itemconfig(max_speed, text=str(round(psutil.cpu_freq().max/1000,2))+"GHz")
         # canvas.itemconfig(ram, text=str(round(psutil.virtual_memory().total/(1024**3),2))+"GB")
-        canvas.itemconfig(L3_mem, text=str(get_l3_capacity())+"GB")
-        canvas.itemconfig(L2_mem, text=str(get_l2_capacity())+"GB")
+        canvas.itemconfig(L3_mem, text=str(get_l3_capacity())+"KB")
+        canvas.itemconfig(L2_mem, text=str(get_l2_capacity())+"KB")
+        canvas.itemconfig(cpu_int, text=str(psutil.cpu_stats().interrupts))
+        canvas.itemconfig(calls, text=str(psutil.cpu_stats().syscalls))
+        canvas.itemconfig(con_swi, text=str(psutil.cpu_stats().ctx_switches))
         plot()
 
         canvas.itemconfig(tagOrId=mgraph, figure=fig)
@@ -116,6 +119,7 @@ def cpu_page(parent):
         ax.set_title("CPU Usage chart", color="white", fontweight="bold")
         ax.set_xlabel("Time", color="white")
         ax.set_ylabel("Usage %", color="white")
+        # ax.set_ylim(0, 100)
         ax.tick_params(axis="both", colors="white")
         ax.grid(color="#A8A4C3", linestyle="dashed", linewidth=0.5)
         mgraph.draw()
@@ -137,7 +141,7 @@ def cpu_page(parent):
     ax.set_facecolor("#1A1A25")
     ax.fill_between(x, y, alpha=0.5)
     ax.tick_params(axis="both", colors="white")
-    ax.set_ylim(0, 100)
+    
     ax.grid(color="#DEBDBF", linestyle="dashed", linewidth=0.5)
     mgraph = FigureCanvasTkAgg(fig, master=canvas)
     mgraph.get_tk_widget().place(x=40, y=75)
@@ -357,8 +361,8 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
-        394.0,
+    cpu_int=canvas.create_text(
+        424.0,
         607.0,
         anchor="nw",
         text="16.0MB",
@@ -370,14 +374,14 @@ def cpu_page(parent):
         491.0,
         529.0,
         anchor="nw",
-        text="Context Switches",
+        text="Context \nSwitches",
         fill="#99999B",
         font=("MontserratRoman Medium", 16 * -1),
     )
 
     canvas.create_text(
         501.0,
-        568.0,
+        578.0,
         anchor="nw",
         text="Sys Calls",
         fill="#99999B",
@@ -393,7 +397,7 @@ def cpu_page(parent):
     #     font=("MontserratRoman Medium", 16 * -1),
     # )
 
-    canvas.create_text(
+    con_swi=canvas.create_text(
         635.0,
         529.0,
         anchor="nw",
@@ -402,9 +406,9 @@ def cpu_page(parent):
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
+    calls=canvas.create_text(
         627.0,
-        568.0,
+        578.0,
         anchor="nw",
         text="6040",
         fill="#FFFFFF",

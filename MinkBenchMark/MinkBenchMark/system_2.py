@@ -17,12 +17,6 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"assets//system2")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-
-# window = Tk()
-
-# window.geometry("937x693")
-# window.configure(bg = "#010101")
-
 def sys_info_page(parent):
     canvas = Canvas(
         parent,
@@ -35,6 +29,8 @@ def sys_info_page(parent):
     )
 
     canvas.place(x = 290, y = 14)
+    
+    global image_image_1
     image_image_1 = PhotoImage(
         file=relative_to_assets("image_1.png"))
     image_1 = canvas.create_image(
@@ -43,6 +39,7 @@ def sys_info_page(parent):
         image=image_image_1
     )
 
+    global image_image_2
     image_image_2 = PhotoImage(
         file=relative_to_assets("image_2.png"))
     image_2 = canvas.create_image(
@@ -51,6 +48,7 @@ def sys_info_page(parent):
         image=image_image_2
     )
 
+    global image_image_3
     image_image_3 = PhotoImage(
         file=relative_to_assets("image_3.png"))
     image_3 = canvas.create_image(
@@ -59,6 +57,7 @@ def sys_info_page(parent):
         image=image_image_3
     )
 
+    global image_image_4
     image_image_4 = PhotoImage(
         file=relative_to_assets("image_4.png"))
     image_4 = canvas.create_image(
@@ -67,6 +66,7 @@ def sys_info_page(parent):
         image=image_image_4
     )
 
+    global image_image_5
     image_image_5 = PhotoImage(
         file=relative_to_assets("image_5.png"))
     image_5 = canvas.create_image(
@@ -90,7 +90,7 @@ def sys_info_page(parent):
         anchor="nw",
         text="No. Of Networks \nConnected",
         fill="#DFBAC7",
-        font=("MontserratRoman Bold", 24 * -1)
+        font=("MontserratRoman Bold", 20 * -1)
     )
 
     canvas.create_text(
@@ -171,7 +171,7 @@ def sys_info_page(parent):
         anchor="nw",
         text="76%",
         fill="#99999B",
-        font=("MontserratRoman Medium", 24 * -1)
+        font=("MontserratRoman Medium", 20 * -1)
     )
 
     canvas.create_text(
@@ -180,7 +180,7 @@ def sys_info_page(parent):
         anchor="nw",
         text="76%",
         fill="#99999B",
-        font=("MontserratRoman Medium", 24 * -1)
+        font=("MontserratRoman Medium", 20 * -1)
     )
 
     canvas.create_text(
@@ -243,6 +243,6 @@ def sys_info_page(parent):
         anchor="nw",
         text="Network Name",
         fill="#DFBAC7",
-        font=("MontserratRoman Bold", 24 * -1)
+        font=("MontserratRoman Bold", 20 * -1)
     )
 
