@@ -58,7 +58,7 @@ def disk_page(parent):
         canvas.itemconfig(tagOrId=usage_entry, text=str(new_usage) + "%")
         # only plot last 60 points
 
-        # plot()
+        plot()
 
         canvas.itemconfig(tagOrId=mgraph, figure=fig)
 
@@ -71,8 +71,8 @@ def disk_page(parent):
             y.pop(0)
         ax.cla()
         ax.set_facecolor("#1A1A25")
-        ax.pie(x, labels=y, autopct='%1.1f%%', startangle=90)
-        # ax.fill_between(x, y, alpha=0.5, color="#94C31E")
+        # ax.pie(x, labels=y, autopct='%1.1f%%', startangle=90)
+        ax.fill_between(x, y, alpha=0.5, color="#94C31E")
         ax.tick_params(axis="both", colors="white")
         ax.grid(color="#A8A4C3", linestyle="dashed", linewidth=0.5)
         mgraph.draw()
@@ -92,7 +92,7 @@ def disk_page(parent):
     fig = Figure(figsize=(8.5, 3.5), facecolor="#1A1A25")
     ax = fig.add_subplot()
     ax.set_facecolor("#1A1A25")
-    ax.pie(x, labels=y, autopct='%1.1f%%', startangle=90)
+    # ax.pie(x, labels=y, autopct='%1.1f%%', startangle=90)
     ax.fill_between(x, y, alpha=0.5)
     ax.tick_params(axis="both", colors="white")
     ax.grid(color="#DEBDBF", linestyle="dashed", linewidth=0.5)
