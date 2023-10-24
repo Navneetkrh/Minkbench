@@ -3,7 +3,7 @@ from tkinter import ttk
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-def generate_pie_chart():
+def generate_pie_chart(labels, sizes):
     # Sample data for the pie chart
     labels = ['A', 'B', 'C', 'D']
     sizes = [15, 30, 45, 10]
@@ -25,8 +25,10 @@ window = tk.Tk()
 window.title("Pie Chart in Tkinter")
 
 # Create a button to generate the pie chart
-generate_button = ttk.Button(window, text="Generate Pie Chart", command=generate_pie_chart)
-generate_button.grid(row=0, column=0)
+# generate_button = ttk.Button(window, text="Generate Pie Chart", command=generate_pie_chart)
+# generate_button.grid(row=0, column=0)
+
+generate_pie_chart()
 
 # Start the Tkinter main loop
 window.mainloop()

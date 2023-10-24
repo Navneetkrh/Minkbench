@@ -18,14 +18,14 @@ from matplotlib.animation import FuncAnimation
 from itertools import count
 
 global x
-x = []
+x = ['A', 'B', 'C', 'D']# label
 global y
-y = []
+y = [15,30,45,10] #data
 
 
 def disk_usage():
-    print("disk usage is", psutil.cpu_percent())
-    return np.random.randint(0, 100)
+    # extract 
+    pass
 
 
 counter = count(0, 1)
@@ -58,7 +58,7 @@ def disk_page(parent):
         canvas.itemconfig(tagOrId=usage_entry, text=str(new_usage) + "%")
         # only plot last 60 points
 
-        plot()
+        # plot()
 
         canvas.itemconfig(tagOrId=mgraph, figure=fig)
 
@@ -66,13 +66,15 @@ def disk_page(parent):
         
         
     def plot():
+    #     labels = ['A', 'B', 'C', 'D']
+    # sizes = [15, 30, 45, 10]
         if len(x) > 30:
             x.pop(0)
             y.pop(0)
         ax.cla()
         ax.set_facecolor("#1A1A25")
-        # ax.pie(x, labels=y, autopct='%1.1f%%', startangle=90)
-        ax.fill_between(x, y, alpha=0.5, color="#94C31E")
+        ax.pie(y, labels=x, autopct='%1.1f%%', startangle=90)
+        # ax.fill_between(x, y, alpha=0.5, color="#94C31E")
         ax.tick_params(axis="both", colors="white")
         ax.grid(color="#A8A4C3", linestyle="dashed", linewidth=0.5)
         mgraph.draw()
@@ -92,10 +94,22 @@ def disk_page(parent):
     fig = Figure(figsize=(8.5, 3.5), facecolor="#1A1A25")
     ax = fig.add_subplot()
     ax.set_facecolor("#1A1A25")
-    # ax.pie(x, labels=y, autopct='%1.1f%%', startangle=90)
-    ax.fill_between(x, y, alpha=0.5)
+    # Wedge properties
+    wp = { 'linewidth' : 1, 'edgecolor' : "green" }
+    
+    # label_colors = ['white'] 
+    
+    wedges, texts, autotexts = ax.pie(y, labels=x, autopct='%1.1f%%', startangle=90,radius=1.5,shadow=True, wedgeprops=wp,textprops={'color':"white"})
+    # ax.fill_between(x, y, alpha=0.5)
     ax.tick_params(axis="both", colors="white")
     ax.grid(color="#DEBDBF", linestyle="dashed", linewidth=0.5)
+    
+    
+    
+    # for text, autotext, color in zip(texts, autotexts, label_colors):
+    #     text.set_color(color)
+    #     autotext.set_color('white')
+        
     mgraph = FigureCanvasTkAgg(fig, master=canvas)
     mgraph.get_tk_widget().place(x=40, y=75)
 
