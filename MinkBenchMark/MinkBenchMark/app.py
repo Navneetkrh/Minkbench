@@ -3,9 +3,10 @@ from cpu_stats import cpu_page
 from gpu_stats import gpu_page
 from ram_stats import ram_page
 from disk_stats import disk_page
-from benchmark import benchmark_page
+from bechmark_3 import benchmark_page
 from about_4 import about_page
 from system_2 import sys_info_page
+
 
 from pathlib import Path
 
@@ -17,10 +18,9 @@ from tkinter import *
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r"assets//frame0")
-def relative_to_assets(path: str) -> Path:
-    return ASSETS_PATH / Path(path)
 
-def main_page(window):
+def main_page(splashroot):
+    splashroot.destroy()
 
     def hide_underline():
         # canvas.itemconfig(id, state='hidden'/'normal') 
@@ -34,7 +34,8 @@ def main_page(window):
 
 
 
-
+    def relative_to_assets(path: str) -> Path:
+        return ASSETS_PATH / Path(path)
 
     def handle_button_press(btn_name):
         hide_underline()
@@ -68,6 +69,7 @@ def main_page(window):
             canvas.itemconfig(sys_info_underline,state='normal')
             current_window = sys_info_page(window)
         
+        
             
     def cpu_btn_clicked():
         print("cpu button clicked")
@@ -98,13 +100,11 @@ def main_page(window):
         # canvas.itemconfig(page_navigator, text="cpu")
         sidebar_navigator.place(x=0, y=133)
 
-    # window = Tk()
-    # window.title("Mink")
-    # window.geometry("1280x720")
-    # window.configure(bg = "#010101")
+    window = Tk()
+    window.title("Mink")
+    window.geometry("1280x720")
+    window.configure(bg = "#010101")
 
-
-    
     canvas = Canvas(
         window,
         bg = "#010101",
@@ -116,6 +116,7 @@ def main_page(window):
     )
 
     canvas.place(x = 0, y = 0)
+    global image_image_1
     image_image_1 = PhotoImage(
         file=relative_to_assets("image_1.png"))
     image_1 = canvas.create_image(
@@ -126,6 +127,7 @@ def main_page(window):
 
     current_window = sys_info_page(window)
 
+    global button_image_1
     button_image_1 = PhotoImage(
         file=relative_to_assets("button_1.png"))
     btn_about = Button(
@@ -143,6 +145,7 @@ def main_page(window):
         height=51.0
     )
 
+    global button_image_2
     button_image_2 = PhotoImage(
         file=relative_to_assets("button_2.png"))
     btn_benchmarking = Button(
@@ -160,7 +163,7 @@ def main_page(window):
         height=40.0
     )
 
-    canvas.create_rectangle(
+    sys_info_underline = canvas.create_rectangle(
         38.0,
         356.0,
         264.0000305175781,
@@ -224,6 +227,7 @@ def main_page(window):
         fill="#DFBAC7",
         outline="") ##Underline
 
+    global button_image_3
     button_image_3 = PhotoImage(
         file=relative_to_assets("button_3.png"))
     btn_disk = Button(
@@ -241,6 +245,7 @@ def main_page(window):
         height=36.0
     )
 
+    global button_image_4
     button_image_4 = PhotoImage(
         file=relative_to_assets("button_4.png"))
     btn_gpu = Button(
@@ -257,6 +262,7 @@ def main_page(window):
         height=40.0
     )
 
+    global button_image_5
     button_image_5 = PhotoImage(
         file=relative_to_assets("button_5.png"))
     btn_ram = Button(
@@ -273,6 +279,7 @@ def main_page(window):
         height=36.0
     )
 
+    global button_image_6
     button_image_6 = PhotoImage(
         file=relative_to_assets("button_6.png"))
     btn_cpu = Button(
@@ -289,6 +296,7 @@ def main_page(window):
         height=40.0
     )
 
+    global button_image_7
     button_image_7 = PhotoImage(
         file=relative_to_assets("button_7.png"))
     btn_sys_info = Button(
@@ -331,7 +339,5 @@ def main_page(window):
     #     52.0, 80.0, anchor="nw", text="cpu", fill="#FFFFFF", font=("Inter Bold", 24 * -1)
     # )
     hide_underline()
-    canvas.itemconfig(sys_info_underline_,state='normal')
+    canvas.itemconfig(sys_info_underline,state='normal')
 
-# window.resizable(False, False)
-# window.mainloop()

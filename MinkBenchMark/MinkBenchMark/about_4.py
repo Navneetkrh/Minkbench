@@ -26,12 +26,12 @@ def about_page(parent):
         relief = "ridge"
     )
 
-    canvas.place(x = 290, y = 14)
+    canvas.place(x = 300, y = 14)
     global image_image_1
     image_image_1 = PhotoImage(
         file=relative_to_assets("image_1.png"))
     image_1 = canvas.create_image(
-        454.0,
+        497.0,
         360.0,
         image=image_image_1
     )

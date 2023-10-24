@@ -120,7 +120,7 @@ def disk_page(parent):
     mgraph = FigureCanvasTkAgg(fig, master=canvas)
     mgraph.get_tk_widget().place(x=40, y=75)
 
-    canvas.place(x=290, y=14)
+    canvas.place(x=300, y=14)
     
     global image_image_1
     image_image_1 = PhotoImage(file=relative_to_assets("image_1.png"))

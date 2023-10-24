@@ -75,8 +75,10 @@ def get_l3_capacity():
 
 
 def cpu_page(parent):
+    
     usage = 0
     global update
+    global usage_entry
 
     def update():
         global usage
@@ -133,7 +135,7 @@ def cpu_page(parent):
         highlightthickness=0,
         relief="ridge",
     )
-
+  
     # adding figure badi mehnat se
     global fig
     fig = Figure(figsize=(8.5, 3.5), facecolor="#1A1A25")
@@ -146,7 +148,7 @@ def cpu_page(parent):
     mgraph = FigureCanvasTkAgg(fig, master=canvas)
     mgraph.get_tk_widget().place(x=40, y=75)
 
-    canvas.place(x=290, y=14)
+    canvas.place(x=300, y=14)
     
     global image_image_1
     image_image_1 = PhotoImage(file=relative_to_assets("image_1.png"))
@@ -232,7 +234,7 @@ def cpu_page(parent):
     image_5 = canvas.create_image(354.0, 478.0, image=image_image_5)
 
     Curr_speed=canvas.create_text(
-        372.0,
+        370.0,
         466.0,
         anchor="nw",
         text="3.5GHz",
@@ -259,14 +261,14 @@ def cpu_page(parent):
         anchor="nw",
         text="5",
         fill="#FFFFFF",
-        font=("MontserratRoman Medium", 20 * -1),
+        font=("MontserratRoman Medium", 16 * -1),
     )
 
     canvas.create_text(
         23.0,
         466.0,
         anchor="nw",
-        text="Cpu Usage",
+        text="CPU Usage",
         fill="#DFBAC7",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -425,7 +427,7 @@ def cpu_page(parent):
     # )
 
     log_cores=canvas.create_text(
-        568.0,
+        688.0,
         568.0,
         anchor="nw",
         text="16",

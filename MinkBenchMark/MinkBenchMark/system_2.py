@@ -16,7 +16,7 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"assets//system2")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-def cpu_name():
+def cpu_name1():
     result = subprocess.check_output("cat /proc/cpuinfo | grep 'model name' | uniq | cut -d: -f2", shell=True)
     cpu_model = result.decode('utf-8').strip()
     return cpu_model
@@ -30,9 +30,10 @@ def sys_info_page(parent):
         canvas.itemconfig(os_release, text=str(platform.release()))
         canvas.itemconfig(os_version, text=str(platform.version()))
         canvas.itemconfig(platform_name, text=str(platform.platform()))
-        canvas.itemconfig(cpu_name, text=str(cpu_name()))
+        canvas.itemconfig(cpu_name, text=cpu_name1())
         canvas.itemconfig(network, text=str(platform.node()))
-        canvas.itemconfig(connect, text=str(psutil.cpu_stats().interrupts))
+        canvas.itemconfig(connect, text=str(len(psutil.net_connections())))
+        canvas.after(500, update)
     
     canvas = Canvas(
         parent,
@@ -44,7 +45,7 @@ def sys_info_page(parent):
         relief = "ridge"
     )
 
-    canvas.place(x = 290, y = 14)
+    canvas.place(x = 300, y = 14)
     
     global image_image_1
     image_image_1 = PhotoImage(
@@ -97,14 +98,14 @@ def sys_info_page(parent):
         anchor="nw",
         text="OS Version ",
         fill="#DFBAC7",
-        font=("MontserratRoman Bold", 24 * -1)
+        font=("MontserratRoman Bold", 20 * -1)
     )
 
     canvas.create_text(
         53.0,
         577.0,
         anchor="nw",
-        text="No. Of Networks \nConnected",
+        text="Networks Connected",
         fill="#DFBAC7",
         font=("MontserratRoman Bold", 20 * -1)
     )
@@ -137,52 +138,52 @@ def sys_info_page(parent):
     )
 
     os_name=canvas.create_text(
-        425.0,
+        290.0,
         288.0,
         anchor="nw",
         text="76%",
         fill="#99999B",
-        font=("MontserratRoman Medium", 24 * -1)
+        font=("MontserratRoman Medium", 20 * -1)
     )
 
     os_release=canvas.create_text(
-        425.0,
+        290.0,
         326.0,
         anchor="nw",
         text="76%",
         fill="#99999B",
-        font=("MontserratRoman Medium", 24 * -1)
+        font=("MontserratRoman Medium", 20 * -1)
     )
 
     os_version=canvas.create_text(
-        425.0,
+        290.0,
         362.0,
         anchor="nw",
         text="76%",
         fill="#99999B",
-        font=("MontserratRoman Medium", 24 * -1)
+        font=("MontserratRoman Medium", 20 * -1)
     )
 
     platform_name=canvas.create_text(
-        426.0,
+        290.0,
         439.0,
         anchor="nw",
         text="76%",
         fill="#99999B",
-        font=("MontserratRoman Medium", 24 * -1)
+        font=("MontserratRoman Medium", 20 * -1)
     )
 
     cpu_name=canvas.create_text(
-        426.0,
+        290.0,
         474.0,
         anchor="nw",
         text="76%",
         fill="#99999B",
-        font=("MontserratRoman Medium", 24 * -1)
+        font=("MontserratRoman Medium", 20 * -1)
     )
 
     network=canvas.create_text(
-        426.0,
+        290.0,
         544.0,
         anchor="nw",
         text="76%",
@@ -192,7 +193,7 @@ def sys_info_page(parent):
 
     connect=canvas.create_text(
         425.0,
-        600.0,
+        577.0,
         anchor="nw",
         text="76%",
         fill="#99999B",
@@ -212,7 +213,7 @@ def sys_info_page(parent):
         57.0,
         288.0,
         anchor="nw",
-        text="Os Name",
+        text="OS Name",
         fill="#DFBAC7",
         font=("MontserratRoman Bold", 24 * -1)
     )
@@ -221,7 +222,7 @@ def sys_info_page(parent):
         57.0,
         326.0,
         anchor="nw",
-        text="Os Release",
+        text="OS Release",
         fill="#DFBAC7",
         font=("MontserratRoman Bold", 24 * -1)
     )

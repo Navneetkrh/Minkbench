@@ -2,7 +2,7 @@ import time
 import psutil
 import re
 import sympy
-from pdfminer.high_level import extract_pages, extract_text
+# from pdfminer.high_level import extract_pages, extract_text
 import numpy as np 
 import pandas as pd 
 from sklearn.model_selection import train_test_split
@@ -16,7 +16,7 @@ def ml_train():
     from sklearn.ensemble import AdaBoostClassifier
 
     st1 = time.time()
-    df = pd.read_csv('my_benchmark_data.csv')
+    df = pd.read_csv('/home/soham/Coding_Adventures/OS/MinorProject/Minkbench/MinkBenchMark/MinkBenchMark/backend2/my_benchmark_data.csv')
     y_data = np.array(df['Class'])
     x_data = np.array(df.drop(columns=['Class']))
     x_train,x_test,y_train,y_test = train_test_split(x_data,y_data,random_state = 100,stratify = y_data)

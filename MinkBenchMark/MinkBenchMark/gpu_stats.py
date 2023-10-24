@@ -17,23 +17,45 @@ from matplotlib.animation import FuncAnimation
 
 from itertools import count
 
+import subprocess
+
+# Run the 'glxinfo -B' command and capture the output
+output = subprocess.check_output(['glxinfo', '-B'], universal_newlines=True)
+
+# Initialize variables to store GPU information
+vendor = None
+device = None
+video_memory = None
+total_available_memory = None
+
+# Split the output into lines and search for relevant information
+lines = output.split('\n')
+for line in lines:
+    if "Vendor:" in line:
+        vendor = line.split("Vendor:")[1].strip()
+    if "Device:" in line:
+        device = line.split("Device:")[1].strip()
+    if "Dedicated video memory:" in line:
+        video_memory = line.split("Dedicated video memory:")[1].strip().split()[0]
+    if "Currently available dedicated video memory:" in line:
+        total_available_memory = int(line.split("Currently available dedicated video memory:")[1].strip().split()[0])
+
+
 global x
 x = []
 global y
 y = []
 
-
-# def gpu_usage():
-#     print("gpu usage is", psutil.cpu_percent())
-#     return np.random.randint(0, 100)
-
-
-
+gpu_per = None
+def ram_usage():
+    print("ram usage is", gpu_per=((video_memory-total_available_memory)/video_memory)*100)
+    # return np.random.randint(0, 100)
+    return gpu_per
 
 counter = count(0, 1)
 
 OUTPUT_PATH = Path(__file__).parent
-ASSETS_PATH = OUTPUT_PATH / Path(r"assets//frame1")
+ASSETS_PATH = OUTPUT_PATH / Path(r"assets//frame2")
 
 
 def relative_to_assets(path: str) -> Path:
@@ -52,13 +74,15 @@ def gpu_page(parent):
 
     def update():
         global usage
-        new_usage = psutil.cpu_percent()
+        new_usage = gpu_per
         x.append(next(counter))
-        y.append(gpu_usage())
+        y.append(new_usage)
 
         usage = new_usage
         canvas.itemconfig(tagOrId=usage_entry, text=str(new_usage) + "%")
-        canvas.itemconfig(tagOrId=voltage, text=str(gpu_usage()) + "W")
+        canvas.itemconfig(tagOrId=ram_size, text=str(video_memory )+ "MB")
+        canvas.itemconfig(tagOrId=free_ram, text=str(total_available_memory) + "MB")
+        canvas.itemconfig(tagOrId=usage_entry, text=video_memory-total_available_memory) + "MB")
         # only plot last 60 points
 
         plot()
@@ -72,10 +96,11 @@ def gpu_page(parent):
             y.pop(0)
         ax.cla()
         ax.set_facecolor("#1A1A25")
-        ax.fill_between(x, y, alpha=0.5, color="#2b8da3")
-        ax.set_title("GPU Usage chart", color="white", fontweight="bold")
+        ax.fill_between(x, y, alpha=0.5, color="#DB6E8E")
+        ax.set_title("RAM Usage chart", color="white", fontweight="bold")
         ax.set_xlabel("Time", color="white")
         ax.set_ylabel("Usage %", color="white")
+        ax.set_ylim(0, 100)
         ax.tick_params(axis="both", colors="white")
         ax.grid(color="#A8A4C3", linestyle="dashed", linewidth=0.5)
         mgraph.draw()
@@ -101,61 +126,61 @@ def gpu_page(parent):
     mgraph = FigureCanvasTkAgg(fig, master=canvas)
     mgraph.get_tk_widget().place(x=40, y=75)
 
-    canvas.place(x=290, y=14)
+    canvas.place(x=300, y=14)
     
     global image_image_1
     image_image_1 = PhotoImage(file=relative_to_assets("image_1.png"))
     image_1 = canvas.create_image(469.0, 249.0, image=image_image_1)
 
-    global image_image_2
-    image_image_2 = PhotoImage(file=relative_to_assets("image_2.png"))
-    image_2 = canvas.create_image(469.0, 578.0, image=image_image_2)
+    # global image_image_2
+    # image_image_2 = PhotoImage(file=relative_to_assets("image_2.png"))
+    # image_2 = canvas.create_image(469.0, 578.0, image=image_image_2)
+
+    # canvas.create_text(
+    #     29.0,
+    #     529.0,
+    #     anchor="nw",
+    #     text="Base Speed",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
+
+    # canvas.create_text(
+    #     731.0,
+    #     524.0,
+    #     anchor="nw",
+    #     text="Logical\nProcessors",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
+
+    # canvas.create_text(
+    #     29.0,
+    #     568.0,
+    #     anchor="nw",
+    #     text="Sockets",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
+
+    # canvas.create_text(
+    #     29.0,
+    #     607.0,
+    #     anchor="nw",
+    #     text="Cores",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
+
+    # global image_image_3
+    # image_image_3 = PhotoImage(file=relative_to_assets("image_3.png"))
+    # image_3 = canvas.create_image(584.0, 478.0, image=image_image_3)
 
     canvas.create_text(
-        29.0,
-        529.0,
+        23.0,
+        600.0,
         anchor="nw",
-        text="Base Speed",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
-
-    canvas.create_text(
-        731.0,
-        524.0,
-        anchor="nw",
-        text="Logical\nProcessors",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
-
-    canvas.create_text(
-        29.0,
-        568.0,
-        anchor="nw",
-        text="Sockets",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
-
-    canvas.create_text(
-        29.0,
-        607.0,
-        anchor="nw",
-        text="Cores",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
-
-    global image_image_3
-    image_image_3 = PhotoImage(file=relative_to_assets("image_3.png"))
-    image_3 = canvas.create_image(584.0, 478.0, image=image_image_3)
-
-    canvas.create_text(
-        487.0,
-        466.0,
-        anchor="nw",
-        text="GPU Voltage",
+        text="Gpu Size",
         fill="#DFBAC7",
         font=("MontserratRoman Medium", 16 * -1),
     )
@@ -164,31 +189,31 @@ def gpu_page(parent):
         363.0,
         16.0,
         anchor="nw",
-        text="GPU Statistics",
+        text="Gpu Statistics",
         fill="#DFBAC7",
         font=("Inter Bold", 24 * -1),
     )
 
-    voltage=canvas.create_text(
-        630.0,
-        466.0,
+    ram_size=canvas.create_text(
+        169.0,
+        600.0,
         anchor="nw",
         text="25W",
         fill="#FFFFFF",
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    global image_image_4
-    image_image_4 = PhotoImage(file=relative_to_assets("image_4.png"))
-    image_4 = canvas.create_image(814.0, 478.0, image=image_image_4)
+    # global image_image_4
+    # image_image_4 = PhotoImage(file=relative_to_assets("image_4.png"))
+    # image_4 = canvas.create_image(814.0, 478.0, image=image_image_4)
 
-    global image_image_5
-    image_image_5 = PhotoImage(file=relative_to_assets("image_5.png"))
-    image_5 = canvas.create_image(354.0, 478.0, image=image_image_5)
+    # global image_image_5
+    # image_image_5 = PhotoImage(file=relative_to_assets("image_5.png"))
+    # image_5 = canvas.create_image(354.0, 478.0, image=image_image_5)
 
-    canvas.create_text(
-        372.0,
-        466.0,
+    free_ram=canvas.create_text(
+        169.0,
+        550.0,
         anchor="nw",
         text="3.5GHz",
         fill="#FFFFFF",
@@ -196,195 +221,204 @@ def gpu_page(parent):
     )
 
     canvas.create_text(
-        261.0,
-        466.0,
+        23.0,
+        550.0,
         anchor="nw",
-        text="Speed",
+        text="Free Gpu",
         fill="#DFBAC7",
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    global image_image_6
-    image_image_6 = PhotoImage(file=relative_to_assets("image_6.png"))
-    image_6 = canvas.create_image(124.0, 478.0, image=image_image_6)
+    # global image_image_6
+    # image_image_6 = PhotoImage(file=relative_to_assets("image_6.png"))
+    # image_6 = canvas.create_image(124.0, 478.0, image=image_image_6)
 
     usage_entry=canvas.create_text(
         169.0,
-        466.0,
+        490.0,
         anchor="nw",
         text="50°C",
         fill="#FFFFFF",
-        font=("MontserratRoman Medium", 20 * -1),
+        font=("MontserratRoman Medium", 16 * -1),
     )
 
     canvas.create_text(
         23.0,
-        466.0,
+        490.0,
         anchor="nw",
-        text="Temperature",
+        text="Gpu Usage",
         fill="#DFBAC7",
         font=("MontserratRoman Medium", 16 * -1),
     )
 
-    canvas.create_text(
-        724.0,
-        466.0,
-        anchor="nw",
-        text="GPU Usage",
-        fill="#DFBAC7",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     724.0,
+    #     466.0,
+    #     anchor="nw",
+    #     text="Ram Size",
+    #     fill="#DFBAC7",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        859.0,
-        466.0,
-        anchor="nw",
-        text="50°C",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     859.0,
+    #     466.0,
+    #     anchor="nw",
+    #     text="50°C",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        161.0,
-        529.0,
-        anchor="nw",
-        text="3.2GHz",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     161.0,
+    #     529.0,
+    #     anchor="nw",
+    #     text="3.2GHz",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        192.0,
-        568.0,
-        anchor="nw",
-        text="1",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     192.0,
+    #     568.0,
+    #     anchor="nw",
+    #     text="1",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        190.0,
-        607.0,
-        anchor="nw",
-        text="8",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     190.0,
+    #     607.0,
+    #     anchor="nw",
+    #     text="8",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        274.0,
-        529.0,
-        anchor="nw",
-        text="L1 Cache",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     274.0,
+    #     529.0,
+    #     anchor="nw",
+    #     text="L1 Cache",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        274.0,
-        568.0,
-        anchor="nw",
-        text="L2 Cache",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     274.0,
+    #     568.0,
+    #     anchor="nw",
+    #     text="L2 Cache",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        274.0,
-        607.0,
-        anchor="nw",
-        text="L3 Cache",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     274.0,
+    #     607.0,
+    #     anchor="nw",
+    #     text="L3 Cache",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        400.0,
-        529.0,
-        anchor="nw",
-        text="512KB",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     400.0,
+    #     529.0,
+    #     anchor="nw",
+    #     text="512KB",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        397.0,
-        568.0,
-        anchor="nw",
-        text="4.0MB",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     397.0,
+    #     568.0,
+    #     anchor="nw",
+    #     text="4.0MB",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        394.0,
-        607.0,
-        anchor="nw",
-        text="16.0MB",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     394.0,
+    #     607.0,
+    #     anchor="nw",
+    #     text="16.0MB",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        491.0,
-        529.0,
-        anchor="nw",
-        text="Processes",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     491.0,
+    #     529.0,
+    #     anchor="nw",
+    #     text="Processes",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        501.0,
-        568.0,
-        anchor="nw",
-        text="Threads",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     501.0,
+    #     568.0,
+    #     anchor="nw",
+    #     text="Threads",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        499.0,
-        607.0,
-        anchor="nw",
-        text="Handles ",
-        fill="#99999B",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+    # canvas.create_text(
+    #     499.0,
+    #     607.0,
+    #     anchor="nw",
+    #     text="Handles ",
+    #     fill="#99999B",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
 
-    canvas.create_text(
-        635.0,
-        529.0,
-        anchor="nw",
-        text="369",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
 
-    canvas.create_text(
-        627.0,
-        568.0,
-        anchor="nw",
-        text="6040",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
 
-    canvas.create_text(
-        619.0,
-        607.0,
-        anchor="nw",
-        text="158479",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
 
-    canvas.create_text(
-        888.0,
-        536.0,
-        anchor="nw",
-        text="16",
-        fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
-    )
+
+
+
+
+
+
+    # canvas.create_text(
+    #     635.0,
+    #     529.0,
+    #     anchor="nw",
+    #     text="369",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
+
+    # canvas.create_text(
+    #     627.0,
+    #     568.0,
+    #     anchor="nw",
+    #     text="6040",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
+
+    # canvas.create_text(
+    #     619.0,
+    #     607.0,
+    #     anchor="nw",
+    #     text="158479",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
+
+    # canvas.create_text(
+    #     888.0,
+    #     536.0,
+    #     anchor="nw",
+    #     text="16",
+    #     fill="#FFFFFF",
+    #     font=("MontserratRoman Medium", 16 * -1),
+    # )
     update()
