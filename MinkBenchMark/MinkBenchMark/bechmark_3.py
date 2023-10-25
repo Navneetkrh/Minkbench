@@ -68,7 +68,7 @@ def benchmark_page(parent):
         anchor="nw",
         text="Benchmark",
         fill="#DFBAC7",
-        font=("Inter Bold", 24 * -1)
+        font=("MontserratRoman Bold", 24 * -1)
     )
 
     global image_image_1

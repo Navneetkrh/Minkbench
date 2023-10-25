@@ -36,7 +36,7 @@ for line in lines:
     if "Device:" in line:
         device = line.split("Device:")[1].strip()
     if "Dedicated video memory:" in line:
-        video_memory = line.split("Dedicated video memory:")[1].strip().split()[0]
+        video_memory = int(line.split("Dedicated video memory:")[1].strip().split()[0])
     if "Currently available dedicated video memory:" in line:
         total_available_memory = int(line.split("Currently available dedicated video memory:")[1].strip().split()[0])
 
@@ -48,7 +48,7 @@ y = []
 
 gpu_per = None
 def gpu_usage():
-    print("ram usage is", gpu_per=((int(video_memory)-int(total_available_memory))/int(video_memory))*100)
+    gpu_per=((int(video_memory)-int(total_available_memory))/int(video_memory))*100
     # return np.random.randint(0, 100)
     return gpu_per
 

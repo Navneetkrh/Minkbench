@@ -74,8 +74,9 @@ for line in lines:
         device = line.split("Device:")[1].strip()
     if "Video memory:" in line:
         video_memory = line.split("Video memory:")[1].strip().split()[0]
-    if "Total available memory:" in line:
-        total_available_memory = int(line.split("Total available memory:")[1].strip().split()[0])
+    if "Currently available dedicated video memory:" in line:
+        total_available_memory = line.split("Currently available dedicated video memory:")[1].strip().split()[0]
+        total_available_memory = total_available_memory[:-2]
 
 # Print the retrieved GPU information
 print("Vendor:", vendor)

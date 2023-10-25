@@ -31,43 +31,43 @@ def about_page(parent):
     image_image_1 = PhotoImage(
         file=relative_to_assets("image_1.png"))
     image_1 = canvas.create_image(
-        497.0,
+        496.0,
         360.0,
         image=image_image_1
     )
 
     canvas.create_text(
-        338.0,
+        363.0,
         14.0,
         anchor="nw",
         text="About",
         fill="#DFBAC7",
-        font=("Inter Bold", 24 * -1)
+        font=("MontserratRoman Bold", 24 * -1)
     )
 
     canvas.create_text(
-        166.0,
+        116.0,
         172.0,
         anchor="nw",
         text="Your one-stop solution for CPU monitoring and benchmarking",
         fill="#99999B",
-        font=("Inter Bold", 20 * -1)
+        font=("MontserratRoman Bold", 20 * -1)
     )
 
     canvas.create_text(
-        393.0,
+        356.0,
         125.0,
         anchor="nw",
         text="MinkBench",
         fill="#B49497",
-        font=("Inter ExtraBold", 36 * -1)
+        font=("MontserratRoman ExtraBold", 36 * -1)
     )
 
     canvas.create_text(
         71.0,
         288.0,
         anchor="nw",
-        text="A benchmarking and system monitoring software created as a \ncourse project for CSL3030:Operationg Systems.It uses \npython libraries to extract data from your system and runs different \nbenchmarking programs to give a benchmark score.\n\nCreated By:\nNavneet Kumar (B21CS050)\nManish (B21CS044)\nSoham Parikh (B21CS074)\nTarun Raj Singh (B21CS076)",
+        text="A benchmarking and system monitoring software created as a \ncourse project for CSL3030:Operationg Systems.It uses \npython libraries to extract data from your system and runs different \nbenchmarking programs to give a benchmark score.\n\nCreated By:\n\tNavneet Kumar (B21CS050)\n\tManish (B21CS044)\n\tSoham Parikh (B21CS074)\n\tTarun Raj Singh (B21CS076)",
         fill="#99999B",
         font=("MontserratRoman Medium", 20 * -1)
     )

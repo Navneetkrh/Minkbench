@@ -217,7 +217,7 @@ def cpu_page(parent):
     )
 
     battery_percent = canvas.create_text(
-        620.0,
+        609.0,
         466.0,
         anchor="nw",
         text="25W",
@@ -274,21 +274,21 @@ def cpu_page(parent):
     )
 
     canvas.create_text(
-        724.0,
+        714.0,
         466.0,
         anchor="nw",
         text="Temperature",
         fill="#DFBAC7",
-        font=("MontserratRoman Medium", 16 * -1),
+        font=("MontserratRoman Medium", 14 * -1),
     )
 
     curr_temp = canvas.create_text(
-        859.0,
-        466.0,
+        849.0,
+        469.0,
         anchor="nw",
         text="50°C",
         fill="#FFFFFF",
-        font=("MontserratRoman Medium", 16 * -1),
+        font=("MontserratRoman Medium", 12 * -1),
     )
 
     max_speed=canvas.create_text(
@@ -427,7 +427,7 @@ def cpu_page(parent):
     # )
 
     log_cores=canvas.create_text(
-        688.0,
+        693.0,
         568.0,
         anchor="nw",
         text="16",
