@@ -35,23 +35,31 @@ for line in lines:
         vendor = line.split("Vendor:")[1].strip()
     if "Device:" in line:
         device = line.split("Device:")[1].strip()
-    if "Dedicated video memory:" in line:
-        video_memory = int(line.split("Dedicated video memory:")[1].strip().split()[0])
+    if "Video memory:" in line:
+        video_memory = line.split("Video memory:")[1].strip().split()[0]
     if "Currently available dedicated video memory:" in line:
-        total_available_memory = int(line.split("Currently available dedicated video memory:")[1].strip().split()[0])
+        total_available_memory = line.split("Currently available dedicated video memory:")[1].strip().split()[0]
 
 
+video_memory=video_memory[0:len(video_memory)-2]
+video_memory = int(video_memory)
+total_available_memory = int(total_available_memory)
+print(video_memory)
+print(total_available_memory)
 global x
 x = []
 global y
 y = []
 
-gpu_per = None
-def gpu_usage():
-    gpu_per=((int(video_memory)-int(total_available_memory))/int(video_memory))*100
-    # return np.random.randint(0, 100)
-    return gpu_per
+# print(((video_memory-total_available_memory)/video_memory)*100)
 
+# print(type(total_available_memory))
+def gpu_usage():
+    yy=((video_memory-total_available_memory)/video_memory)*100
+    # return np.random.randint(0, 100)
+    gpu_per=yy
+    return gpu_per
+print(gpu_usage())
 counter = count(0, 1)
 
 OUTPUT_PATH = Path(__file__).parent
@@ -75,18 +83,19 @@ def gpu_page(parent):
     def update():
         global usage
         gpu_usage()
-        new_usage = gpu_per
+        new_usage = gpu_usage()
+        # print(new_usage)
         x.append(next(counter))
         y.append(new_usage)
 
         usage = new_usage
         canvas.itemconfig(tagOrId=usage_entry, text=str(new_usage) + "%")
         canvas.itemconfig(tagOrId=ram_size, text=str(video_memory )+ "MB")
-        print(video_memory)
+        # print(video_memory)
         canvas.itemconfig(tagOrId=free_ram, text=str(total_available_memory) + "MB")
-        print(total_available_memory)
-        canvas.itemconfig(tagOrId=usage_entry, text=str(int(video_memory)-int(total_available_memory)) + "MB")
-        # only plot last 60 points
+        # print(total_available_memory)
+        canvas.itemconfig(tagOrId=usage_entry, text=str(video_memory-total_available_memory) + "MB")
+        # only plot last 60 points  
 
         plot()
 
@@ -99,10 +108,10 @@ def gpu_page(parent):
             y.pop(0)
         ax.cla()
         ax.set_facecolor("#1A1A25")
-        ax.fill_between(x, y, alpha=0.5, color="#DB6E8E")
+        ax.fill_between(x, y, alpha=0.4, color="#AEF359")
         ax.set_title("RAM Usage chart", color="white", fontweight="bold")
         ax.set_xlabel("Time", color="white")
-        ax.set_ylabel("Usage %", color="white")
+        ax.set_ylabel("Usage %", color="white")   
         ax.set_ylim(0, 100)
         ax.tick_params(axis="both", colors="white")
         ax.grid(color="#A8A4C3", linestyle="dashed", linewidth=0.5)
@@ -123,7 +132,7 @@ def gpu_page(parent):
     fig = Figure(figsize=(8.5, 3.5), facecolor="#1A1A25")
     ax = fig.add_subplot()
     ax.set_facecolor("#1A1A25")
-    ax.fill_between(x, y, alpha=0.5)
+    ax.fill_between(x, y, alpha=0.4)
     ax.tick_params(axis="both", colors="white")
     ax.grid(color="#DEBDBF", linestyle="dashed", linewidth=0.5)
     mgraph = FigureCanvasTkAgg(fig, master=canvas)

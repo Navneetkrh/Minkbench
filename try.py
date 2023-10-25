@@ -76,13 +76,12 @@ for line in lines:
         video_memory = line.split("Video memory:")[1].strip().split()[0]
     if "Currently available dedicated video memory:" in line:
         total_available_memory = line.split("Currently available dedicated video memory:")[1].strip().split()[0]
-        total_available_memory = total_available_memory[:-2]
 
 # Print the retrieved GPU information
 print("Vendor:", vendor)
 print("Device:", device)
 print("Video Memory:", int(video_memory[:-2]))
-print("Total Available Memory:", total_available_memory, "MB")
+print("Total Available Memory:", total_available_memory)
 
 
 # name of display: :0

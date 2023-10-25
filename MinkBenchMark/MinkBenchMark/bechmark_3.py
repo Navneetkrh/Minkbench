@@ -49,13 +49,18 @@ def benchmark_page(parent):
         canvas.update()
     def done_benchmark():
         canvas.itemconfig(remark, text="Benchmarking \ncompleted", fill="#AAFF00")
-        string_result = f"Benchmarking completed!\n\nBenchmark Score: {b_score}\nMachine Learning Score: {ml_score}\nAugmented Reality Score: {ar_score}\nData Transfer Score: {dt_score}"
-        canvas.itemconfig(result, text=string_result, fill="#AAFF00")
-        print(b_score, ml_score, ar_score, dt_score)
+        
     def get_score():
         # start_benchmark()
-        # b_score, ml_score, ar_score, dt_score = Main_benchmark()
+        b_score, ml_score, ar_score, dt_score = Main_benchmark()
+        # b_score, ml_score, ar_score, dt_score = 1,2,3,4
         time.sleep(5)
+        string_result = f"Benchmarking completed!\n\nYour MinkBench Score: {round(b_score,2)}"
+        string_result_details=f"\n\nMachine Learning Score: {round(ml_score,2)}\nArithmetic Score: {round(ar_score,2)}\nTree Score: {round(dt_score,2)}"
+        canvas.itemconfig(result, text=string_result, fill="#AAFF00")
+        canvas.itemconfig(result_detail, text=string_result_details, fill="#DFBAC7")
+        print(b_score, ml_score, ar_score, dt_score)    
+        # time.sleep(5)
         # done_benchmark()
         # fill green 
         
@@ -109,7 +114,7 @@ def benchmark_page(parent):
 
     global button_image_1
     button_image_1 = PhotoImage(
-        file=relative_to_assets("button_1.png"))
+        file=relative_to_assets("button_13.png"))
     button_1 = Button(
         image=button_image_1,
         borderwidth=0,
@@ -140,5 +145,14 @@ def benchmark_page(parent):
         fill="#99999B",
         font=("MontserratRoman Medium", 20 * -1)
     )
+    result_detail=canvas.create_text(
+        100,
+        450,
+        anchor="nw",
+        text="",
+        fill="#99999B",
+        font=("MontserratRoman Medium", 16 * -1)
+    )
+
 # window.resizable(False, False)
 # window.mainloop()
