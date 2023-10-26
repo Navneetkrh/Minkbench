@@ -54,34 +54,34 @@
 #     print(f"GPU {i}: {usage / 1024**2} MB")
 
 
-import subprocess
+# import subprocess
 
-# Run the 'glxinfo -B' command and capture the output
-output = subprocess.check_output(['glxinfo', '-B'], universal_newlines=True)
+# # Run the 'glxinfo -B' command and capture the output
+# output = subprocess.check_output(['glxinfo', '-B'], universal_newlines=True)
 
-# Initialize variables to store GPU information
-vendor = None
-device = None
-video_memory = None
-total_available_memory = None
+# # Initialize variables to store GPU information
+# vendor = None
+# device = None
+# video_memory = None
+# total_available_memory = None
 
-# Split the output into lines and search for relevant information
-lines = output.split('\n')
-for line in lines:
-    if "Vendor:" in line:
-        vendor = line.split("Vendor:")[1].strip()
-    if "Device:" in line:
-        device = line.split("Device:")[1].strip()
-    if "Video memory:" in line:
-        video_memory = line.split("Video memory:")[1].strip().split()[0]
-    if "Currently available dedicated video memory:" in line:
-        total_available_memory = line.split("Currently available dedicated video memory:")[1].strip().split()[0]
+# # Split the output into lines and search for relevant information
+# lines = output.split('\n')
+# for line in lines:
+#     if "Vendor:" in line:
+#         vendor = line.split("Vendor:")[1].strip()
+#     if "Device:" in line:
+#         device = line.split("Device:")[1].strip()
+#     if "Video memory:" in line:
+#         video_memory = line.split("Video memory:")[1].strip().split()[0]
+#     if "Currently available dedicated video memory:" in line:
+#         total_available_memory = line.split("Currently available dedicated video memory:")[1].strip().split()[0]
 
-# Print the retrieved GPU information
-print("Vendor:", vendor)
-print("Device:", device)
-print("Video Memory:", int(video_memory[:-2]))
-print("Total Available Memory:", total_available_memory)
+# # Print the retrieved GPU information
+# print("Vendor:", vendor)
+# print("Device:", device)
+# print("Video Memory:", int(video_memory[:-2]))
+# print("Total Available Memory:", total_available_memory)
 
 
 # name of display: :0
@@ -125,3 +125,40 @@ print("Total Available Memory:", total_available_memory)
 # OpenGL ES profile version string: OpenGL ES 3.2 Mesa 23.0.4-0ubuntu1~22.04.1
 # OpenGL ES profile shading language version string: OpenGL ES GLSL ES 3.20
 
+
+# import time
+# from PIL import Image, ImageFilter
+
+# def image_processing():
+#     st = time.time()
+#     print(st)
+#     image = Image.open('Large_image.jpg')
+#     for _ in range(1000):
+#         image = image.filter(ImageFilter.GaussianBlur(radius=10))
+#         image = image.rotate(30)
+#         image = image.convert('L')
+#         image = image.resize((2000, 2000), Image.ANTIALIAS)
+#         def custom_filter(pixel):
+#             return pixel
+#         image = image.point(custom_filter)
+#     et = time.time()
+#     return et - st
+# # Call the image processing function to apply the operations
+# print(image_processing())
+
+# import time
+# from pdfminer.high_level import extract_pages
+
+# def pdf_text_render():
+#     start_time = time.time()
+#     for page_layout in extract_pages('trial.pdf'):
+#         for element in page_layout:
+#             continue
+#     end_time = time.time()
+#     duration = end_time-start_time
+#     return (1273/duration)
+
+# print(pdf_text_render())
+
+import psutil
+print(psutil.sensors_temperatures())

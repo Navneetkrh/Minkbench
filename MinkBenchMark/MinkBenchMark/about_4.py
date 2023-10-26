@@ -37,7 +37,7 @@ def about_page(parent):
     )
 
     canvas.create_text(
-        363.0,
+        453.0,
         14.0,
         anchor="nw",
         text="About",
@@ -67,7 +67,7 @@ def about_page(parent):
         71.0,
         288.0,
         anchor="nw",
-        text="A benchmarking and system monitoring software created as a \ncourse project for CSL3030:Operationg Systems.It uses \npython libraries to extract data from your system and runs different \nbenchmarking programs to give a benchmark score.\n\nCreated By:\n\tNavneet Kumar (B21CS050)\n\tManish (B21CS044)\n\tSoham Parikh (B21CS074)\n\tTarun Raj Singh (B21CS076)",
+        text="A benchmarking and system monitoring software created as a \ncourse project for CSL3030:Operationg Systems.It uses \npython libraries to extract data from your system and runs different \nbenchmarking programs to give a benchmark score.\n\nCreated By:\n\n\tNavneet Kumar (B21CS050)\n\tManish (B21CS044)\n\tSoham Parikh (B21CS074)\n\tTarun Raj Singh (B21CS076)",
         fill="#99999B",
         font=("MontserratRoman Medium", 20 * -1)
     )

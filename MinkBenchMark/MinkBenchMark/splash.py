@@ -43,10 +43,10 @@ button_1 = Button(
     command=lambda: main_page(splashroot= splashroot),
     relief="flat",
 )
-button_1.place(x=495.0, y=597.0, width=304.0, height=73.0)
+button_1.place(x=495.0, y=597.0, width=303.0, height=73.0)
 
 canvas.create_text(
-    278.0,
+    188.0,
     392.0,
     anchor="nw",
     text="Your one-stop solution for CPU monitoring and benchmarking",

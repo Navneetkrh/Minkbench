@@ -3,7 +3,7 @@ from cpu_stats import cpu_page
 from gpu_stats import gpu_page
 from ram_stats import ram_page
 from disk_stats import disk_page
-from bechmark_3 import benchmark_page
+from benchmark_4 import benchmark_page
 from about_4 import about_page
 from system_2 import sys_info_page
 
@@ -40,31 +40,61 @@ def handle_button_press(btn_name):
     if btn_name == "cpu":
         cpu_btn_clicked()
         canvas.itemconfig(cpu_underline,state='normal')
-        current_window = cpu_page(window)
+        gpu_page(window,0)
+        ram_page(window,0)
+        disk_page(window,0)
+        sys_info_page(window,0)
+        current_window = cpu_page(window, 1)
     elif btn_name == "gpu":
         gpu_btn_clicked()
         canvas.itemconfig(gpu_underline,state='normal')
-        current_window = gpu_page(window)
+        cpu_page(window, 0)
+        ram_page(window,0)
+        disk_page(window,0)
+        sys_info_page(window,0)
+        current_window = gpu_page(window,1)
     elif btn_name == "ram":
         ram_btn_clicked()
         canvas.itemconfig(ram_underline,state='normal')
-        current_window = ram_page(window)
+        cpu_page(window,0)
+        gpu_page(window,0)
+        disk_page(window,0)
+        sys_info_page(window,0)
+        current_window = ram_page(window,1)
     elif btn_name == "disk":
         disk_btn_clicked()
         canvas.itemconfig(disk_underline,state='normal')
-        current_window = disk_page(window)
+        cpu_page(window,0)
+        gpu_page(window,0)
+        ram_page(window,0)
+        sys_info_page(window,0)
+        current_window = disk_page(window,1)
     elif btn_name == "benchmarking":
         benchmark_btn_clicked()
         canvas.itemconfig(benchmarking_underline,state='normal')
+        cpu_page(window,0)
+        gpu_page(window,0)
+        ram_page(window,0)
+        disk_page(window,0)
+        sys_info_page(window,0)
         current_window = benchmark_page(window)
     elif btn_name == "about":
         about_btn_clicked()
         canvas.itemconfig(about_underline,state='normal')
+        cpu_page(window,0)
+        gpu_page(window,0)
+        ram_page(window,0)
+        disk_page(window,0)
+        sys_info_page(window,0)
         current_window = about_page(window)
     elif btn_name == "sys_info":
         sys_info_btn_clicked()
         canvas.itemconfig(sys_info_underline,state='normal')
-        current_window = sys_info_page(window)
+        cpu_page(window,0)
+        gpu_page(window,0)
+        ram_page(window,0)
+        disk_page(window,0)
+        current_window = sys_info_page(window,1)
     
     
         
@@ -121,7 +151,7 @@ image_1 = canvas.create_image(
     image=image_image_1
 )
 
-current_window = sys_info_page(window)
+current_window = about_page(window)
 
 button_image_1 = PhotoImage(
     file=relative_to_assets("button_1.png"))

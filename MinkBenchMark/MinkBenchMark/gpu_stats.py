@@ -76,11 +76,17 @@ def relative_to_assets(path: str) -> Path:
 # window.configure(bg="#010101")
 
 
-def gpu_page(parent):
+def gpu_page(parent, page):
     usage = 0
     global update
 
     def update():
+        
+        if(not page):
+            print("halt gpu")
+            return
+        print("gpu update called")
+        
         global usage
         gpu_usage()
         new_usage = gpu_usage()

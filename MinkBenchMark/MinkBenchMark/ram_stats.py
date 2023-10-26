@@ -45,11 +45,16 @@ def relative_to_assets(path: str) -> Path:
 # window.configure(bg="#010101")
 
 
-def ram_page(parent):
+def ram_page(parent, page):
     usage = 0
     global update
 
     def update():
+        if(not page):
+            print("halt ram")
+            return
+        print("ram update called")
+        
         global usage
         new_usage = psutil.virtual_memory().percent
         x.append(next(counter))

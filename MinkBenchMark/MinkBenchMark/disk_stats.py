@@ -45,11 +45,16 @@ def relative_to_assets(path: str) -> Path:
 # window.configure(bg="#010101")
 
 
-def disk_page(parent):
+def disk_page(parent, page):
     usage = 0
     global update
 
     def update():
+        
+        if(not page):
+            print("halt disk")
+            return
+        print("disk update called")
         # global usage
         # new_usage = psutil.cpu_percent()
         # x.append(next(counter))

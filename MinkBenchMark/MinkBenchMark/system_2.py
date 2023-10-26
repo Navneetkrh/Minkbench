@@ -22,8 +22,14 @@ def cpu_name1():
     return cpu_model
 
 
-def sys_info_page(parent):
+def sys_info_page(parent,page):
+    global update
     def update():
+        if(not page):
+            print("halt system")
+            return
+        print("system update called")
+        
         canvas.itemconfig(battery, text=str(round(psutil.sensors_battery().percent,2))+"%")
         canvas.itemconfig(mac_name, text=str(platform.machine()))
         canvas.itemconfig(os_name, text=str(platform.system()))
@@ -157,11 +163,11 @@ def sys_info_page(parent):
 
     os_version=canvas.create_text(
         290.0,
-        362.0,
+        370.0,
         anchor="nw",
         text="76%",
         fill="#99999B",
-        font=("MontserratRoman Medium", 20 * -1)
+        font=("MontserratRoman Medium", 12 * -1)
     )
 
     platform_name=canvas.create_text(

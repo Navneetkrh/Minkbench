@@ -74,13 +74,21 @@ def get_l3_capacity():
 
 
 
-def cpu_page(parent):
+def cpu_page(parent,page):
     
     usage = 0
     global update
     global usage_entry
 
     def update():
+        
+        if(not page):
+            print("halt cpu")
+            return
+        print("cpu update called")
+    
+        
+        
         global usage
         new_usage = psutil.cpu_percent()
         x.append(next(counter))
